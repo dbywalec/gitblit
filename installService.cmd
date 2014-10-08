@@ -10,6 +10,7 @@
 
 @REM arch = x86, amd64, or ia32
 SET ARCH=amd64
+SET CD=D:\Gitblit
 
 @REM Be careful not to introduce trailing whitespace after the ^ characters.
 @REM Use ; or # to separate values in the --StartParams parameter.
@@ -25,7 +26,7 @@ SET ARCH=amd64
 		 --StartPath="%CD%" ^
 		 --StartClass=org.moxie.MxLauncher ^
 		 --StartMethod=main ^
-		 --StartParams="--storePassword;gitblit;--baseFolder;%CD%\data" ^
+		 --StartParams="--storePassword;MPVtQDrwnTW@;--baseFolder;%CD%\data" ^
 		 --StartMode=jvm ^
 		 --StopPath="%CD%" ^
 		 --StopClass=org.moxie.MxLauncher ^
@@ -33,6 +34,6 @@ SET ARCH=amd64
 		 --StopParams="--stop;--baseFolder;%CD%\data" ^
 		 --StopMode=jvm ^
 		 --Classpath="%CD%\gitblit.jar" ^
-		 --Jvm=auto ^
+		 --Jvm=C:\jdk1.8.0_20\jre\bin\server\jvm.dll ^
 		 --JvmMx=1024
 		 
