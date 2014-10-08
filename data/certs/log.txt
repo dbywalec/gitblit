@@ -1,0 +1,4 @@
+2014-10-08 12:26: New CA certificate 1412764016550 [C=PL,ST=Poland,L=Wroclaw,O=Trapeze Group,OU=Trapeze Poland,CN=Gitblit Certificate Authority]
+2014-10-08 12:26: new certificate revocation list created
+2014-10-08 12:26: New SSL certificate 1412764018110 [C=PL,ST=Poland,L=Wroclaw,O=Trapeze Group,OU=Trapeze Poland,CN=localhost]
+2014-10-08 12:28: New SSL certificate 1412764136907 [C=PL,ST=Poland,L=Wroclaw,O=Trapeze Group,OU=Trapeze Poland,CN=wrpgit.vgnet.volgrp.com]
