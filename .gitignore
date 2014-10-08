@@ -3,7 +3,7 @@
 /data/git
 /data/tickets
 /data/ssh
-/log
+/logs
 
 # Specific files to ignore
 /data/projects.conf
