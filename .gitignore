@@ -1,1 +1,10 @@
+# Folders to ignore
 /data/temp
+/data/git
+/data/tickets
+/data/ssh
+/log
+
+# Specific files to ignore
+/data/projects.conf
+/data/users.conf
