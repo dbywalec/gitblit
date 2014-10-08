@@ -1,0 +1,495 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<!-- Begin Header -->
+<title>Gitblit</title>
+<meta charset="utf-8">
+<meta name="ROBOTS" content="INDEX">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		
+<link rel="stylesheet" href="./bootstrap/css/bootstrap.css">
+<link rel='shortcut icon' type='image/png' href='./gitblt-favicon.png' />
+<link rel="stylesheet" href="./prettify/prettify.css" />
+<script src="./prettify/prettify.js"></script>
+<script src="./bootstrap/js/jquery.js"></script>
+<script src="./bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body onload='prettyPrint()'>		<!-- Navigation Bar -->
+		<div class="navbar navbar-fixed-top">
+			<div class="navbar-inner">
+				<div class="container">
+          			<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+            			<span class="icon-bar"></span>
+            			<span class="icon-bar"></span>
+            			<span class="icon-bar"></span>
+          			</a>
+          			<a class="brand" href="./"><img src="./gitblt_25_white.png" alt="Gitblit"></img></a>
+					<div class="nav-collapse">
+						<ul class="nav">
+							<li class='dropdown'> <!-- Menu -->
+<a class='dropdown-toggle' href='#' data-toggle='dropdown'>about<b class='caret'></b></a>
+<ul class='dropdown-menu'>
+<li><a href='index.html'>overview</a></li>
+<li><a href='features.html'>features</a></li>
+</ul></li> <!-- End Menu -->
+<li class='dropdown'> <!-- Menu -->
+<a class='dropdown-toggle' href='#' data-toggle='dropdown'>documentation<b class='caret'></b></a>
+<ul class='dropdown-menu'>
+<li class='dropdown-submenu'> <!-- Submenu -->
+<a tabindex='-1' href='#'>Gitblit GO</a>
+<ul class='dropdown-menu'>
+<li><a href='setup_go.html'>setup GO</a></li>
+<li><a href='upgrade_go.html'>upgrade GO</a></li>
+</ul></li> <!-- End Submenu -->
+<li class='divider'></li>
+<li class='dropdown-submenu'> <!-- Submenu -->
+<a tabindex='-1' href='#'>Gitblit WAR</a>
+<ul class='dropdown-menu'>
+<li><a href='setup_war.html'>setup WAR</a></li>
+<li><a href='upgrade_war.html'>upgrade WAR</a></li>
+</ul></li> <!-- End Submenu -->
+<li class='divider'></li>
+<li class='dropdown-submenu'> <!-- Submenu -->
+<a tabindex='-1' href='#'>Server Configuration</a>
+<ul class='dropdown-menu'>
+<li><a href='administration.html'>administration</a></li>
+<li><a href='setup_authentication.html'>authentication</a></li>
+<li><a href='setup_hooks.html'>push hooks</a></li>
+<li><a href='setup_lucene.html'>lucene indexing</a></li>
+<li><a href='setup_proxy.html'>reverse proxies</a></li>
+<li><a href='setup_clientmenus.html'>client app menus</a></li>
+<li><a href='setup_bugtraq.html'>bugtraq</a></li>
+<li><a href='setup_mirrors.html'>mirrors</a></li>
+<li><a href='setup_scaling.html'>scaling</a></li>
+<li class='divider'></li>
+<li><a href='setup_viewer.html'>Gitblit as a viewer</a></li>
+</ul></li> <!-- End Submenu -->
+<li class='divider'></li>
+<li class='dropdown-submenu'> <!-- Submenu -->
+<a tabindex='-1' href='#'>Client Usage</a>
+<ul class='dropdown-menu'>
+<li><a href='setup_transport_http.html'>using HTTP/HTTPS</a></li>
+<li><a href='setup_transport_ssh.html'>using SSH</a></li>
+<li><a href='eclipse_plugin.html'>using the Eclipse plugin</a></li>
+</ul></li> <!-- End Submenu -->
+<li class='divider'></li>
+<li class='dropdown-submenu'> <!-- Submenu -->
+<a tabindex='-1' href='#'>Tickets</a>
+<ul class='dropdown-menu'>
+<li><a href='tickets_overview.html'>overview</a></li>
+<li><a href='tickets_using.html'>using</a></li>
+<li><a href='tickets_barnum.html'>barnum</a></li>
+<li><a href='tickets_setup.html'>setup</a></li>
+<li><a href='tickets_replication.html'>replication & advanced administration</a></li>
+</ul></li> <!-- End Submenu -->
+<li class='divider'></li>
+<li class='dropdown-submenu'> <!-- Submenu -->
+<a tabindex='-1' href='#'>Plugins</a>
+<ul class='dropdown-menu'>
+<li><a href='plugins_overview.html'>overview</a></li>
+<li><a href='plugins_extensions.html'>extension points</a></li>
+</ul></li> <!-- End Submenu -->
+<li class='divider'></li>
+<li><a href='federation.html'>federation</a></li>
+<li class='divider'></li>
+<li><a href='properties.html'>settings</a></li>
+<li><a href='faq.html'>faq</a></li>
+<li class='divider'></li>
+<li><a href='design.html'>design</a></li>
+<li><a href='rpc.html'>rpc</a></li>
+</ul></li> <!-- End Menu -->
+<li class='dropdown'> <!-- Menu -->
+<a class='dropdown-toggle' href='#' data-toggle='dropdown'>changelog<b class='caret'></b></a>
+<ul class='dropdown-menu'>
+<li><a href='releasecurrent.html'>current release</a></li>
+<li><a href='releasehistory.html'>older releases</a></li>
+</ul></li> <!-- End Menu -->
+<li class='dropdown'> <!-- Menu -->
+<a class='dropdown-toggle' href='#' data-toggle='dropdown'>links<b class='caret'></b></a>
+<ul class='dropdown-menu'>
+<li><a href='https://dev.gitblit.com'>dev.gitblit.com (self-hosted)</a></li>
+<li class='divider'></li>
+<li><a href='http://plugins.gitblit.com'>Plugins Registry</a></li>
+<li class='divider'></li>
+<li><a href='https://github.com/gitblit/gitblit'>Github</a></li>
+<li><a href='http://code.google.com/p/gitblit/issues/list'>Issues</a></li>
+<li><a href='http://groups.google.com/group/gitblit'>Discussion</a></li>
+<li><a href='https://plus.google.com/114464678392593421684'>Google+</a></li>
+<li><a href='http://www.ohloh.net/p/gitblit'>Ohloh</a></li>
+</ul></li> <!-- End Menu -->
+
+						</ul>
+					</div><!--/.nav-collapse -->
+				</div>
+			</div>
+		</div><!-- end Navigation Bar -->
+<div class='container'>
+<!-- Begin Markdown -->
+<h2 class="section" id='H1'><a href="#H1" class="sectionlink"><i class="icon-share-alt"> </i></a>Older Releases</h2>
+<div class="alert alert-info">
+<h4>Update Note 1.2.0</h4>
+The permissions model has changed in the 1.2.0 release.
+<p>If you are updating your server, you must also update any Gitblit Manager and Federation Client installs to 1.2.0 as well.  The data model used by the RPC mechanism has changed slightly for the new permissions infrastructure.</p>
+</div><p><strong>1.2.0</strong> <em>released 2012-12-31</em></p>
+<h4 class="section" id='H2'><a href="#H2" class="sectionlink"><i class="icon-share-alt"> </i></a>fixes</h4>
+<ul>
+  <li>Fixed regression in <em>isFrozen</em> (<a href='http://code.google.com/p/gitblit/issues/detail?id=181'>issue 181</a>)</li>
+  <li>Author metrics can be broken by newlines in email addresses from converted repositories (<a href='http://code.google.com/p/gitblit/issues/detail?id=176'>issue 176</a>)</li>
+  <li>Set subjectAlternativeName on generated SSL cert if CN is an ip address (<a href='http://code.google.com/p/gitblit/issues/detail?id=170'>issue 170</a>)</li>
+  <li>Fixed incorrect links on history page for files not in the current/active commit (<a href='http://code.google.com/p/gitblit/issues/detail?id=166'>issue 166</a>)</li>
+  <li>Empty repository page failed to handle missing repository (<a href='http://code.google.com/p/gitblit/issues/detail?id=160'>issue 160</a>)</li>
+  <li>Fixed broken ticgit urls (<a href='http://code.google.com/p/gitblit/issues/detail?id=157'>issue 157</a>)</li>
+  <li>Exclude submodules from zip downloads (<a href='http://code.google.com/p/gitblit/issues/detail?id=151'>issue 151</a>)</li>
+  <li>Fixed bug where repository ownership was not updated on rename user</li>
+  <li>Fixed bug in create/rename repository if you explicitly specified the alias for the root group (e.g. main/myrepo) (<a href='http://code.google.com/p/gitblit/issues/detail?id=143'>issue 143</a>)</li>
+  <li>Wrapped Markdown parser with improved exception handler (<a href='http://code.google.com/p/gitblit/issues/detail?id=142'>issue 142</a>)</li>
+  <li>Fixed duplicate entries in repository cache (<a href='http://code.google.com/p/gitblit/issues/detail?id=140'>issue 140</a>)</li>
+  <li>Fixed connection leak in LDAPUserService (<a href='http://code.google.com/p/gitblit/issues/detail?id=139'>issue 139</a>)</li>
+  <li>Fixed bug in commit page where changes to a submodule threw a null pointer exception (<a href='http://code.google.com/p/gitblit/issues/detail?id=132'>issue 132</a>)</li>
+  <li>Fixed bug in the diff view for filenames that have non-ASCII characters (<a href='http://code.google.com/p/gitblit/issues/detail?id=128'>issue 128</a>)</li>
+</ul>
+<h4 class="section" id='H3'><a href="#H3" class="sectionlink"><i class="icon-share-alt"> </i></a>additions</h4>
+<ul>
+  <li>Implemented discrete repository permissions (<a href='http://code.google.com/p/gitblit/issues/detail?id=36'>issue 36</a>)
+  <ul>
+    <li>V (view in web ui, RSS feeds, download zip)</li>
+    <li>R (clone)</li>
+    <li>RW (clone and push)</li>
+    <li>RWC (clone and push with ref creation)</li>
+    <li>RWD (clone and push with ref creation, deletion)</li>
+    <li>RW+ (clone and push with ref creation, deletion, rewind)<br/>While not as sophisticated as Gitolite, this does give finer access controls. These permissions fit in cleanly with the existing users.conf and users.properties files. In Gitblit &lt;= 1.1.0, all your existing user accounts have RW+ access. If you are upgrading to 1.2.0, the RW+ access is <em>preserved</em> and you will have to lower/adjust accordingly.</li>
+  </ul></li>
+  <li>Implemented <em>case-insensitive</em> regex repository permission matching (<a href='http://code.google.com/p/gitblit/issues/detail?id=36'>issue 36</a>)<br/><br/>This allows you to specify a permission like <code>RW:mygroup/.*</code> to grant push privileges to all repositories within the <em>mygroup</em> project/folder.</li>
+  <li>Added DELETE, CREATE, and NON-FAST-FORWARD ref change logging</li>
+  <li>Added support for personal repositories.<br/><br/>Personal repositories can be created by accounts with the <em>create</em> permission and are stored in <em>git.repositoriesFolder/~username</em>. Each user with personal repositories will have a user page, something like the GitHub profile page. Personal repositories have all the same features as common repositories, except personal repositories can be renamed by their owner.</li>
+  <li>Added support for server-side forking of a repository to a personal repository (<a href='http://code.google.com/p/gitblit/issues/detail?id=137'>issue 137</a>)<br/><br/>In order to fork a repository, the user account must have the <em>fork</em> permission <strong>and</strong> the repository must <em>allow forks</em>. The clone inherits the access list of its origin. i.e. if Team A has clone access to the origin repository, then by default Team A also has clone access to the fork. This is to facilitate collaboration. The fork owner may change access to the fork and add/remove users/teams, etc as required <u>however</u> it should be noted that all personal forks will be enumerated in the fork network regardless of access view restrictions. If you really must have an invisible fork, the clone it locally, create a new repository for your invisible fork, and push it back to Gitblit.<br/><br/><strong>New:</strong> <em>web.allowForking=true</em></li>
+  <li>Added optional <em>create-on-push</em> support<br/><br/><strong>New:</strong> <em>git.allowCreateOnPush=true</em></li>
+  <li>Added <strong>experimental</strong> JGit-based garbage collection service. This service is disabled by default.<br/><br/><strong>New:</strong> <em>git.allowGarbageCollection=false</em><br/><br/><strong>New:</strong> <em>git.garbageCollectionHour = 0</em><br/><br/><strong>New:</strong> <em>git.defaultGarbageCollectionThreshold = 500k</em><br/><br/><strong>New:</strong> <em>git.defaultGarbageCollectionPeriod = 7 days</em></li>
+  <li>Added support for X509 client certificate authentication (github/kevinanderson1). (<a href='http://code.google.com/p/gitblit/issues/detail?id=106'>issue 106</a>)<br/><br/>You can require all git servlet access be authenticated by a client certificate. You may also specify the OID fingerprint to use for mapping a certificate to a username. It should be noted that the user account MUST already exist in Gitblit for this authentication mechanism to work; this mechanism can not be used to automatically create user accounts from a certificate.<br/><br/><strong>New:</strong> <em>git.requireClientCertificates = false</em><br/><br/><strong>New:</strong> <em>git.enforceCertificateValidity = true</em><br/><br/><strong>New:</strong> <em>git.certificateUsernameOIDs = CN</em></li>
+  <li>Revised clean install certificate generation to create a Gitblit GO Certificate Authority certificate; an SSL certificate signed by the CA certificate; and to create distinct server key and server trust stores. <u>The store files have been renamed!</u></li>
+  <li>Added support for Gitblit GO to require usage of client certificates to access the entire server.<br/><br/>This is extreme and should be considered carefully since it affects every https access. The default is to <strong>want</strong> client certificates. Setting this value to <em>true</em> changes that to <strong>need</strong> client certificates.<br/><br/><strong>New:</strong> <em>server.requireClientCertificates = false</em></li>
+  <li>Added <strong>Gitblit Certificate Authority</strong>, an x509 PKI management tool for Gitblit GO to encourage use of x509 client certificate authentication.</li>
+  <li>Added setting to control length of shortened commit ids<br/><br/><strong>New:</strong> <em>web.shortCommitIdLength=8</em></li>
+  <li>Added alternate compressed download formats: tar.gz, tar.xz, tar.bzip2 (<a href='http://code.google.com/p/gitblit/issues/detail?id=174'>issue 174</a>)<br/><br/><strong>New:</strong> <em>web.compressedDownloads = zip gz</em></li>
+  <li>Added simple project pages. A project is a subfolder off the <em>git.repositoriesFolder</em>.</li>
+  <li>Added support for X-Forwarded-Context for Apache subdomain proxy configurations (<a href='http://code.google.com/p/gitblit/issues/detail?id=135'>issue 135</a>)</li>
+  <li>Delete branch feature (<a href='http://code.google.com/p/gitblit/issues/detail?id=121'>issue 121</a>, Github/ajermakovics)</li>
+  <li>Added line links to blob view (<a href='http://code.google.com/p/gitblit/issues/detail?id=130'>issue 130</a>)</li>
+  <li>Added HTML sendmail hook script and Gitblit.sendHtmlMail method (github/sauthieg)</li>
+  <li>Added RedmineUserService (github/mallowlabs)</li>
+  <li>Support for committer verification. Requires use of <em>--no-ff</em> when merging branches or pull requests. See setup page for details.</li>
+  <li>Added Brazilian Portuguese translation (github/rafaelcavazin)</li>
+</ul>
+<h4 class="section" id='H4'><a href="#H4" class="sectionlink"><i class="icon-share-alt"> </i></a>changes</h4>
+<ul>
+  <li>Added server setting to specify keystore alias for ssl certificate (<a href='http://code.google.com/p/gitblit/issues/detail?id=98'>issue 98</a>)</li>
+  <li>Added optional global and per-repository activity page commit contribution throttle to help tame <em>really</em> active repositories (<a href='http://code.google.com/p/gitblit/issues/detail?id=173'>issue 173</a>)</li>
+  <li>Added support for symlinks in tree page and commit page (<a href='http://code.google.com/p/gitblit/issues/detail?id=171'>issue 171</a>)</li>
+  <li>All access restricted servlets (e.g. DownloadZip, RSS, etc) will try to authenticate using X509 certificates, container principals, cookies, and BASIC headers, in that order.</li>
+  <li>Added <em>groovy</em> and <em>scala</em> to <em>web.prettyPrintExtensions</em></li>
+  <li>Added short commit id column to log and history tables (<a href='http://code.google.com/p/gitblit/issues/detail?id=168'>issue 168</a>)</li>
+  <li>Teams can now specify the <em>admin</em>, <em>create</em>, and <em>fork</em> roles to simplify user administration</li>
+  <li>Use https Gravatar urls to avoid browser complaints</li>
+  <li>Added frm to default pretty print extensions (<a href='http://code.google.com/p/gitblit/issues/detail?id=156'>issue 156</a>)</li>
+  <li>Expose ReceivePack to Groovy push hooks (<a href='http://code.google.com/p/gitblit/issues/detail?id=125'>issue 125</a>)</li>
+  <li>Redirect to summary page when refreshing the empty repository page on a repository that is not empty (<a href='http://code.google.com/p/gitblit/issues/detail?id=129'>issue 129</a>)</li>
+  <li>Emit a warning in the log file if running on a Tomcat-based servlet container which is unfriendly to %2F forward-slash url encoding AND Gitblit is configured to mount parameters with %2F forward-slash url encoding (Github/jpyeron, <a href='http://code.google.com/p/gitblit/issues/detail?id=126'>issue 126</a>)</li>
+  <li>LDAP admin attribute setting is now consistent with LDAP teams setting and admin teams list.<br/>If <em>realm.ldap.maintainTeams==true</em> <strong>AND</strong> <em>realm.ldap.admins</em> is not empty, then User.canAdmin() is controlled by LDAP administrative team membership. Otherwise, User.canAdmin() is controlled by Gitblit.</li>
+  <li>Support servlet container authentication for existing UserModels (<a href='http://code.google.com/p/gitblit/issues/detail?id=68'>issue 68</a>)</li>
+</ul>
+<h4 class="section" id='H5'><a href="#H5" class="sectionlink"><i class="icon-share-alt"> </i></a>dependency changes</h4>
+<ul>
+  <li>updated to Jetty 7.6.8</li>
+  <li>updated to JGit 2.2.0.201212191850-r</li>
+  <li>updated to Groovy 1.8.8</li>
+  <li>updated to Wicket 1.4.21</li>
+  <li>updated to Lucene 3.6.1</li>
+  <li>updated to BouncyCastle 1.47</li>
+  <li>updated to MarkdownPapers 1.3.2</li>
+  <li>added JCalendar 1.3.2</li>
+  <li>added Commons-Compress 1.4.1</li>
+  <li>added XZ for Java 1.0<br/><hr/></li>
+</ul>
+<div class="alert alert-error">
+<h4>Update Note 1.1.0</h4>
+If you are updating from an earlier release AND you have indexed branches with the Lucene indexing feature, you need to be aware that this release will completely re-index your repositories.  Please be sure to provide ample heap resources as appropriate for your installation.
+</div><p><strong>1.1.0</strong> <em>released 2012-08-25</em></p>
+<h4 class="section" id='H6'><a href="#H6" class="sectionlink"><i class="icon-share-alt"> </i></a>fixes</h4>
+<ul>
+  <li>Bypass Wicket's inability to handle direct url addressing of a view-restricted, grouped repository for new, unauthenticated sessions (e.g. click link from email or rss feed without having an active Wicket session)</li>
+  <li>Fixed MailExecutor's failure to cope with mail server connection troubles resulting in 100% CPU usage</li>
+  <li>Fixed generated urls in Groovy <em>sendmail</em> hook script for grouped repositories</li>
+  <li>Fixed generated urls in RSS feeds for grouped repositories</li>
+  <li>Fixed nullpointer exception in git servlet security filter (<a href='http://code.google.com/p/gitblit/issues/detail?id=123'>issue 123</a>)</li>
+  <li>Eliminated an unnecessary repository enumeration call on the root page which should result in faster page loads (<a href='http://code.google.com/p/gitblit/issues/detail?id=103'>issue 103</a>)</li>
+  <li>Gitblit could not delete a Lucene index in a working copy on index upgrade</li>
+  <li>Do not index submodule links (<a href='http://code.google.com/p/gitblit/issues/detail?id=119'>issue 119</a>)</li>
+  <li>Restore original user or team object on failure to update (<a href='http://code.google.com/p/gitblit/issues/detail?id=118'>issue 118</a>)</li>
+  <li>Fixes to relative path determination in repository search algorithm for symlinks (<a href='http://code.google.com/p/gitblit/issues/detail?id=116'>issue 116</a>)</li>
+  <li>Fix to GitServlet to allow pushing to symlinked repositories (<a href='http://code.google.com/p/gitblit/issues/detail?id=116'>issue 116</a>)</li>
+  <li>Repository URL now uses <code>X-Forwarded-Proto</code> and <code>X-Forwarded-Port</code>, if available, for reverse proxy configurations (<a href='http://code.google.com/p/gitblit/issues/detail?id=115'>issue 115</a>)</li>
+  <li>Output real RAW content, not simulated RAW content (<a href='http://code.google.com/p/gitblit/issues/detail?id=114'>issue 114</a>)</li>
+  <li>Fixed Lucene charset encoding bug when reindexing a repository (<a href='http://code.google.com/p/gitblit/issues/detail?id=112'>issue 112</a>)</li>
+  <li>Fixed search box linking to Lucene page for grouped repository on Tomcat (<a href='http://code.google.com/p/gitblit/issues/detail?id=111'>issue 111</a>)</li>
+  <li>Fixed null pointer in LdapUserSerivce if account has a null email address (<a href='http://code.google.com/p/gitblit/issues/detail?id=110'>issue 110</a>)</li>
+  <li>Really fixed failure to update a GO setting from the manager (<a href='http://code.google.com/p/gitblit/issues/detail?id=85'>issue 85</a>)</li>
+</ul>
+<h4 class="section" id='H7'><a href="#H7" class="sectionlink"><i class="icon-share-alt"> </i></a>additions</h4>
+<ul>
+  <li>Identified repository list is now cached by default to reduce disk io and to improve performance (<a href='http://code.google.com/p/gitblit/issues/detail?id=103'>issue 103</a>)<br/><br/><strong>New:</strong> <em>git.cacheRepositoryList=true</em></li>
+  <li>Preliminary bare repository submodule support<br/><br/><strong>New:</strong> <em>git.submoduleUrlPatterns=</em>
+  <ul>
+    <li><em>git.submoduleUrlPatterns</em> is a space-delimited list of regular expressions for extracting a repository name from a submodule url.<br/><br/>For example, <code>git.submoduleUrlPatterns = .*?://github.com/(.*)</code> would extract <em>gitblit/gitblit.git</em> from *<a href="git://github.git/gitblit/gitblit.git*<br/">git://github.git/gitblit/gitblit.git*<br/</a><br/><strong>Note:</strong> You may not need this control to work with submodules, but it is there if you do.
+</li>
+    <li>If there are no matches from <em>git.submoduleUrlPatterns</em> then the repository name is assumed to be whatever comes after the last <code>/</code> character <em>(e.g. gitblit.git)</em></li>
+    <li>Gitblit will try to locate this repository relative to the current repository <em>(e.g. myfolder/myrepo.git, myfolder/mysubmodule.git)</em> and then at the root level <em>(mysubmodule.git)</em> if that fails.</li>
+    <li>Submodule references in a working copy will be properly identified as gitlinks, but Gitblit will not traverse into the working copy submodule repository.</li>
+  </ul></li>
+  <li>Added a repository setting to control authorization as AUTHENTICATED or NAMED. (<a href='http://code.google.com/p/gitblit/issues/detail?id=117'>issue 117</a>)<br/><br/>NAMED is the original behavior for authorizing against a list of permitted users or permitted teams.<br/>AUTHENTICATED allows restricted access for any authenticated user. This is a looser authorization control.</li>
+  <li>Added default authorization control setting (AUTHENTICATED or NAMED)<br/><br/><strong>New:</strong> <em>git.defaultAuthorizationControl=NAMED</em></li>
+  <li>Added setting to control how deep Gitblit will recurse into <em>git.repositoriesFolder</em> looking for repositories (<a href='http://code.google.com/p/gitblit/issues/detail?id=103'>issue 103</a>)<br/><br/><strong>New:</strong> <em>git.searchRecursionDepth=-1</em></li>
+  <li>Added setting to specify regex exclusions for repositories (<a href='http://code.google.com/p/gitblit/issues/detail?id=103'>issue 103</a>)<br/><br/><strong>New:</strong> <em>git.searchExclusions=</em></li>
+  <li>Blob page now supports displaying images (<a href='http://code.google.com/p/gitblit/issues/detail?id=6'>issue 6</a>)</li>
+  <li>Non-image binary files can now be downloaded using the RAW link</li>
+  <li>Support StartTLS in LdapUserService (Steffen Gebert, <a href='http://code.google.com/p/gitblit/issues/detail?id=122'>issue 122</a>)</li>
+  <li>Added Korean translation</li>
+</ul>
+<h4 class="section" id='H8'><a href="#H8" class="sectionlink"><i class="icon-share-alt"> </i></a>changes</h4>
+<ul>
+  <li>Line breaks inserted for readability in raw Markdown content display in the event of a parsing/transformation error. An error message is now displayed prepended to the raw content.</li>
+  <li>Improve UTF-8 reading for Markdown files</li>
+  <li>Updated Polish translation</li>
+  <li>Updated Japanese translation</li>
+  <li>Updated Spanish translation</li>
+</ul>
+<hr/><p><strong>1.0.0</strong> <em>released 2012-07-14</em></p>
+<h4 class="section" id='H9'><a href="#H9" class="sectionlink"><i class="icon-share-alt"> </i></a>fixes</h4>
+<ul>
+  <li>Fixed bug in Lucene search where old/stale blobs were never properly deleted during incremental updates. This resulted in duplicate blob entries in the index.</li>
+  <li>Fixed intermittent bug in identifying line numbers in Lucene search (<a href='http://code.google.com/p/gitblit/issues/detail?id=105'>issue 105</a>)</li>
+  <li>Adjust repository identification algorithm to handle the scenario where a repository name collides with a group/folder name (e.g. foo.git and foo/bar.git) (<a href='http://code.google.com/p/gitblit/issues/detail?id=104'>issue 104</a>)</li>
+  <li>Fixed bug where a repository set as <em>authenticated push</em> did not have anonymous clone access (<a href='http://code.google.com/p/gitblit/issues/detail?id=96'>issue 96</a>)</li>
+  <li>Fixed bug in Basic authentication if passwords had a colon (Github/peterloron)</li>
+  <li>Fixed bug where the Gitblit Manager could not update a setting that was not referenced in reference.properties (<a href='http://code.google.com/p/gitblit/issues/detail?id=85'>issue 85</a>)</li>
+</ul>
+<h4 class="section" id='H10'><a href="#H10" class="sectionlink"><i class="icon-share-alt"> </i></a>changes</h4>
+<ul>
+  <li><strong>Updated Lucene index version which will force a rebuild of ALL your Lucene indexes</strong><br/><br/>Make sure to properly set <em>web.blobEncodings</em> before starting Gitblit if you are updating! (<a href='http://code.google.com/p/gitblit/issues/detail?id=97'>issue 97</a>)</li>
+  <li>Changed default layout for web ui from Fixed-Width layout to Responsive layout (<a href='http://code.google.com/p/gitblit/issues/detail?id=101'>issue 101</a>)</li>
+  <li>IUserService interface has changed to better accomodate custom authentication and/or custom authorization<br/><br/>The default <code>users.conf</code> now supports persisting display names and email addresses.</li>
+  <li>Updated Japanese translation (Github/zakki)</li>
+</ul>
+<h4 class="section" id='H11'><a href="#H11" class="sectionlink"><i class="icon-share-alt"> </i></a>additions</h4>
+<ul>
+  <li>Added setting to allow specification of a robots.txt file (<a href='http://code.google.com/p/gitblit/issues/detail?id=99'>issue 99</a>)<br/><br/><strong>New:</strong> <em>web.robots.txt =</em></li>
+  <li>Added setting to control Responsive layout or Fixed-Width layout (<a href='http://code.google.com/p/gitblit/issues/detail?id=101'>issue 101</a>)<br/><br/>Responsive layout is now the default. This layout gracefully scales the web ui from a desktop layout to a mobile layout by hiding page components. It is easy to try, just resize your browser or point your Android/iOS device to the url of your Gitblit install.<br/><strong>New:</strong> <em>web.useResponsiveLayout = true</em></li>
+  <li>Added setting to control charsets for blob string decoding. Default encodings are UTF-8, ISO-8859-1, and server's default charset. (<a href='http://code.google.com/p/gitblit/issues/detail?id=97'>issue 97</a>)<br/><br/><strong>New:</strong> <em>web.blobEncodings = UTF-8 ISO-8859-1</em></li>
+  <li>Exposed JGit's internal configuration settings in gitblit.properties/web.xml (<a href='http://code.google.com/p/gitblit/issues/detail?id=93'>issue 93</a>)<br/><br/>Review your <code>gitblit.properties</code> or <code>web.xml</code> for detailed explanations of these settings.<br/><br/><strong>New:</strong> <em>git.packedGitWindowSize = 8k</em><br/><br/><strong>New:</strong> <em>git.packedGitLimit = 10m</em><br/><br/><strong>New:</strong> <em>git.deltaBaseCacheLimit = 10m</em><br/><br/><strong>New:</strong> <em>git.packedGitOpenFiles = 128</em><br/><br/><strong>New:</strong> <em>git.streamFileThreshold = 50m</em><br/><br/><strong>New:</strong> <em>git.packedGitMmap = false</em></li>
+  <li>Added default access restriction. Applies to new repositories and repositories that have not been configured with Gitblit. (<a href='http://code.google.com/p/gitblit/issues/detail?id=88'>issue 88</a>)<br/><br/><strong>New:</strong> <em>git.defaultAccessRestriction = NONE</em></li>
+  <li>Added Ivy 2.2.0 dependency which enables Groovy Grapes, a mechanism to resolve and retrieve library dependencies from a Maven 2 repository within a Groovy push hook script</li>
+  <li>Added setting to control Groovy Grape root folder (location where resolved dependencies are stored)<br/><br/><a href="http://groovy.codehaus.org/Grape">Grape</a> allows you to add Maven dependencies to your pre-/post-receive hook script classpath.<br/><br/><strong>New:</strong> <em>groovy.grapeFolder = groovy/grape</em></li>
+  <li>Added LDAP User Service with many new <em>realm.ldap</em> keys (Github/jcrygier)</li>
+  <li>Added support for custom repository properties for Groovy hooks (Github/jcrygier)<br/><br/>Custom repository properties complement hook scripts by providing text field prompts in the web ui and the Gitblit Manager for the defined properties. This allows your push hooks to be parameterized.</li>
+  <li>Added script to facilitate proxy environment setup on Linux (Github/mragab)</li>
+  <li>Added Polish translation (Lukasz Jader)</li>
+  <li>Added Spanish translation (Eduardo Guervos Narvaez)</li>
+</ul>
+<h4 class="section" id='H12'><a href="#H12" class="sectionlink"><i class="icon-share-alt"> </i></a>dependency changes</h4>
+<ul>
+  <li>updated to Bootstrap 2.0.4</li>
+  <li>updated to JGit 2.0.0.201206130900-r</li>
+  <li>updated to Groovy 1.8.6</li>
+  <li>updated to Gson 1.7.2</li>
+  <li>updated to Log4J 1.2.17</li>
+  <li>updated to SLF4J 1.6.6</li>
+  <li>updated to Apache Commons Daemon 1.0.10</li>
+  <li>added Ivy 2.2.0</li>
+</ul>
+<hr/><p><strong>0.9.3</strong> <em>released 2012-04-11</em></p>
+<h4 class="section" id='H13'><a href="#H13" class="sectionlink"><i class="icon-share-alt"> </i></a>fixes</h4>
+<ul>
+  <li>Fixed bug where you could not remove all selections from a RepositoryModel list (permitted users, permitted teams, hook scripts, federation sets, etc) (<a href='http://code.google.com/p/gitblit/issues/detail?id=81'>issue 81</a>)</li>
+  <li>Automatically set <em>java.awt.headless=true</em> for Gitblit GO</li>
+</ul>
+<hr/><p><strong>0.9.2</strong> <em>released 2012-04-04</em></p>
+<h4 class="section" id='H14'><a href="#H14" class="sectionlink"><i class="icon-share-alt"> </i></a>changes</h4>
+<ul>
+  <li>Added <em>clientLogger</em> bound variable to Groovy hook mechanism to allow custom info and error messages to be returned to the client (Github/jcrygier)</li>
+</ul>
+<h4 class="section" id='H15'><a href="#H15" class="sectionlink"><i class="icon-share-alt"> </i></a>fixes</h4>
+<ul>
+  <li>Fixed absolute path/canonical path discrepancy between Gitblit and JGit regarding use of symlinks (<a href='http://code.google.com/p/gitblit/issues/detail?id=78'>issue 78</a>)</li>
+  <li>Fixed row layout on activity page (<a href='http://code.google.com/p/gitblit/issues/detail?id=79'>issue 79</a>)</li>
+  <li>Fixed Centos service script (Github/mohamedmansour)</li>
+  <li>Fixed EditRepositoryPage for IE8; missing save button (<a href='http://code.google.com/p/gitblit/issues/detail?id=80'>issue 80</a>, Github/jonnybbb)</li>
+</ul>
+<hr/><p><strong>0.9.1</strong> <em>released 2012-03-27</em></p>
+<h4 class="section" id='H16'><a href="#H16" class="sectionlink"><i class="icon-share-alt"> </i></a>fixes</h4>
+<ul>
+  <li>Lucene folder was stored in working copy instead of in .git folder</li>
+</ul>
+<hr/><p><strong>0.9.0</strong> <em>released 2012-03-27</em></p>
+<h4 class="section" id='H17'><a href="#H17" class="sectionlink"><i class="icon-share-alt"> </i></a>security</h4>
+<ul>
+  <li>Fixed session fixation vulnerability where the session identifier was not reset during the login process (<a href='http://code.google.com/p/gitblit/issues/detail?id=62'>issue 62</a>)</li>
+</ul>
+<h4 class="section" id='H18'><a href="#H18" class="sectionlink"><i class="icon-share-alt"> </i></a>changes</h4>
+<ul>
+  <li>Reject pushes to a repository with a working copy (i.e. non-bare repository) (<a href='http://code.google.com/p/gitblit/issues/detail?id=49'>issue 49</a>)</li>
+  <li>Changed default web.datetimestampLongFormat from <em>EEEE, MMMM d, yyyy h:mm a z</em> to <em>EEEE, MMMM d, yyyy HH:mm Z</em> (<a href='http://code.google.com/p/gitblit/issues/detail?id=50'>issue 50</a>)</li>
+  <li>Expanded commit age coloring from 2 days to 30 days (<a href='http://code.google.com/p/gitblit/issues/detail?id=57'>issue 57</a>)</li>
+</ul>
+<h4 class="section" id='H19'><a href="#H19" class="sectionlink"><i class="icon-share-alt"> </i></a>additions</h4>
+<ul>
+  <li>Added optional Lucene branch indexing (<a href='http://code.google.com/p/gitblit/issues/detail?id=16'>issue 16</a>)<br/><br/><strong>New:</strong> <em>web.allowLuceneIndexing = true</em><br/><br/><strong>New:</strong> <em>web.luceneIgnoreExtensions = 7z arc arj bin bmp dll doc docx exe gif gz jar jpg lib lzh odg odf odt pdf ppt png so swf xcf xls xlsx zip</em><br/>Repository branches may be optionally indexed by Lucene for improved searching. To use this feature you must specify which branches to index within the <em>Edit Repository</em> page; <em>no repositories are automatically indexed</em>. Gitblit will build or incrementally update enrolled repositories on a 2 minute cycle. (i.e you will have to wait 2-3 minutes after respecifying indexed branches or pushing new commits before Gitblit will build/update the repository's Lucene index.)<br/>If a repository has Lucene-indexed branches the <em>search</em> form on the repository pages will redirect to the root-level Lucene search page and only the content of those branches can be searched.<br/><br/>If the repository does not specify any indexed branches then repository commit-traversal search is used.<br/><strong>Note:</strong> Initial indexing of an existing repository can be memory-exhaustive. Be sure to provide your Gitblit server adequate heap space to index your repositories (e.g. -Xmx1024M).<br/><br/>See the <a href="setup.html">setup</a> page for additional details.</li>
+  <li>Allow specifying timezone to use for Gitblit which is independent of both the JVM and the system timezone (<a href='http://code.google.com/p/gitblit/issues/detail?id=54'>issue 54</a>)<br/><br/><strong>New:</strong> <em>web.timezone =</em></li>
+  <li>Added a built-in AJP connector for integrating Gitblit GO into an Apache mod_proxy setup (<a href='http://code.google.com/p/gitblit/issues/detail?id=59'>issue 59</a>)<br/><br/><strong>New:</strong> <em>server.ajpPort = 0</em><br/><br/><strong>New:</strong> <em>server.ajpBindInterface = localhost</em></li>
+  <li>On the Repositories page show a bang <em>!</em> character in the color swatch of a repository with a working copy (<a href='http://code.google.com/p/gitblit/issues/detail?id=49'>issue 49</a>)<br/><br/>Push requests to these repositories will be rejected.</li>
+  <li>On all non-bare Repository pages show <em>WORKING COPY</em> in the upper right corner (<a href='http://code.google.com/p/gitblit/issues/detail?id=49'>issue 49</a>)</li>
+  <li>New setting to prevent display/serving non-bare repositories<br/><br/><strong>New:</strong> <em>git.onlyAccessBareRepositories = false</em></li>
+  <li>Added <em>protect-refs.groovy</em> (Github/plm)</li>
+  <li>Allow setting default branch (relinking HEAD) to a branch or a tag (Github/plm)</li>
+  <li>Added Ubuntu service init script (<a href='http://code.google.com/p/gitblit/issues/detail?id=72'>issue 72</a>)</li>
+  <li>Added partial Japanese translation (Github/zakki)</li>
+</ul>
+<h4 class="section" id='H20'><a href="#H20" class="sectionlink"><i class="icon-share-alt"> </i></a>fixes</h4>
+<ul>
+  <li>Ensure that Welcome message is parsed using UTF-8 encoding (<a href='http://code.google.com/p/gitblit/issues/detail?id=74'>issue 74</a>)</li>
+  <li>Activity page chart layout broken by Google (<a href='http://code.google.com/p/gitblit/issues/detail?id=73'>issue 73</a>)</li>
+  <li>Uppercase repositories not selectable in edit palettes (<a href='http://code.google.com/p/gitblit/issues/detail?id=71'>issue 71</a>)</li>
+  <li>Not all git notes were properly displayed on the commit page (<a href='http://code.google.com/p/gitblit/issues/detail?id=70'>issue 70</a>)</li>
+  <li>Activity page now displays all local branches (<a href='http://code.google.com/p/gitblit/issues/detail?id=65'>issue 65</a>)</li>
+  <li>Fixed (harmless) nullpointer on pushing to an empty repository (<a href='http://code.google.com/p/gitblit/issues/detail?id=69'>issue 69</a>)</li>
+  <li>Fixed possible nullpointer from the servlet container on startup (<a href='http://code.google.com/p/gitblit/issues/detail?id=67'>issue 67</a>)</li>
+  <li>Fixed UTF-8 encoding bug on diff page (<a href='http://code.google.com/p/gitblit/issues/detail?id=66'>issue 66</a>)</li>
+  <li>Fixed timezone bugs on the activity page (<a href='http://code.google.com/p/gitblit/issues/detail?id=54'>issue 54</a>)</li>
+  <li>Prevent add/edit team with no selected repositories (<a href='http://code.google.com/p/gitblit/issues/detail?id=56'>issue 56</a>)</li>
+  <li>Disallow browser autocomplete on add/edit user/team/repository pages</li>
+  <li>Fixed username case-sensitivity issues (<a href='http://code.google.com/p/gitblit/issues/detail?id=43'>issue 43</a>)</li>
+  <li>Disregard searching a subfolder if Gitblit does not have filesystem permissions (Github/lemval <a href='http://code.google.com/p/gitblit/issues/detail?id=51'>issue 51</a>)</li>
+</ul>
+<h4 class="section" id='H21'><a href="#H21" class="sectionlink"><i class="icon-share-alt"> </i></a>dependency changes</h4>
+<ul>
+  <li>updated to Bootstrap 2.0.2</li>
+  <li>added GLYPHICONS (as bundled with Bootstrap 2.0.2)</li>
+  <li>updated to MarkdownPapers 1.2.7</li>
+  <li>updated to JGit 1.3.0.201202151440-r</li>
+  <li>updated to Wicket 1.4.20</li>
+</ul>
+<hr/><p><strong>0.8.2</strong> (<a href="http://code.google.com/p/gitblit/downloads/detail?name=gitblit-0.8.2.zip">go</a> | <a href="http://code.google.com/p/gitblit/downloads/detail?name=gitblit-0.8.2.war">war</a> | <a href="http://code.google.com/p/gitblit/downloads/detail?name=express-0.8.2.zip">express</a> | <a href="http://code.google.com/p/gitblit/downloads/detail?name=fedclient-0.8.2.zip">fedclient</a> | <a href="http://code.google.com/p/gitblit/downloads/detail?name=manager-0.8.2.zip">manager</a> | <a href="http://code.google.com/p/gitblit/downloads/detail?name=gbapi-0.8.2.zip">api</a>) based on <a href="http://eclipse.org/jgit" title="Eclipse JGit Site">JGit 1.2.0 (201112221803-r)</a> &nbsp; <em>released 2012-01-13</em></p>
+<h4 class="section" id='H22'><a href="#H22" class="sectionlink"><i class="icon-share-alt"> </i></a>fixes</h4>
+<ul>
+  <li>Fixed bug when upgrading from users.properties to users.conf (<a href='http://code.google.com/p/gitblit/issues/detail?id=41'>issue 41</a>)</li>
+</ul>
+<hr/><p><strong>0.8.1</strong> &nbsp; <em>released 2012-01-11</em></p>
+<h4 class="section" id='H23'><a href="#H23" class="sectionlink"><i class="icon-share-alt"> </i></a>fixes</h4>
+<ul>
+  <li>Include missing icon resource for the manager (<a href='http://code.google.com/p/gitblit/issues/detail?id=40'>issue 40</a>)</li>
+  <li>Fixed sendmail.groovy message content with incorrect tag/branch labels</li>
+</ul>
+<hr/><p><strong>0.8.0</strong> &nbsp; <em>released 2012-01-11</em></p>
+<h4 class="section" id='H24'><a href="#H24" class="sectionlink"><i class="icon-share-alt"> </i></a>additions</h4>
+<ul>
+  <li>Platform-independent, Groovy push hook script mechanism.<br/><br/>Hook scripts can be set per-repository, per-team, or globally for all repositories.<br/><br/><strong>New:</strong> <em>groovy.scriptsFolder = groovy</em><br/><br/><strong>New:</strong> <em>groovy.preReceiveScripts =</em><br/><br/><strong>New:</strong> <em>groovy.postReceiveScripts =</em></li>
+  <li><em>sendmail.groovy</em> for optional email notifications on push.<br/><br/>You must properly configure your SMTP server settings in <code>gitblit.properties</code> or <code>web.xml</code> to use <em>sendmail.groovy</em>.</li>
+  <li>New global key for mailing lists. This is used in conjunction with the <em>sendmail.groovy</em> hook script. All repositories that use the <em>sendmail.groovy</em> script will include these addresses in the notification process. Please see the Setup page for more details about configuring sendmail.<br/><br/><strong>New:</strong> <em>mail.mailingLists =</em></li>
+  <li><em>com.gitblit.GitblitUserService</em>. This is a wrapper object for the built-in user service implementations. For those wanting to only implement custom authentication it is recommended to subclass GitblitUserService and override the appropriate methods. Going forward, this will help insulate custom authentication from new IUserService API and/or changes in model classes.</li>
+  <li>New default user service implementation: <em>com.gitblit.ConfigUserService</em> (<code>users.conf</code>)<br/><br/>This user service implementation allows for serialization and deserialization of more sophisticated Gitblit User objects without requiring the encoding trickery now present in FileUserService (users.properties). This will open the door for more advanced Gitblit features.<br/>For those upgrading from an earlier Gitblit version, a <code>users.conf</code> file will automatically be created for you from your existing <code>users.properties</code> file on your first launch of Gitblit <u>however</u> you will have to manually set <em>realm.userService=users.conf</em> to switch to the new user service.<br/><br/>The original <code>users.properties</code> file and it's corresponding implementation are <strong>deprecated</strong>.<br/><br/><strong>New:</strong> <em>realm.userService = users.conf</em></li>
+  <li>Teams for specifying user-repository access in bulk. Teams may also specify mailing lists addresses and pre- &amp; post- receive hook scripts.</li>
+  <li>Gravatar integration<br/><br/><strong>New:</strong> <em>web.allowGravatar = true</em></li>
+  <li>Activity page for aggregated repository activity. This is a timeline of commit activity over the last N days for one or more repositories.<br/><br/> <strong>New:</strong> <em>web.activityDuration = 14</em><br/><br/> <strong>New:</strong> <em>web.timeFormat = HH:mm</em><br/><br/> <strong>New:</strong> <em>web.datestampLongFormat = EEEE, MMMM d, yyyy</em></li>
+  <li><em>Filters</em> menu for the Repositories page and Activity page. You can filter by federation set, team, and simple custom regular expressions. Custom expressions can be stored in <code>gitblit.properties</code> or <code>web.xml</code> or directly defined in your url (<a href='http://code.google.com/p/gitblit/issues/detail?id=27'>issue 27</a>)<br/><br/> <strong>New:</strong> <em>web.customFilters=</em></li>
+  <li>Flash-based 1-step <em>copy to clipboard</em> of the primary repository url based on Clippy<br/><br/> <strong>New:</strong> <em>web.allowFlashCopyToClipboard = true</em></li>
+  <li>JavaScript-based 3-step (click, ctrl+c, enter) <em>copy to clipboard</em> of the primary repository url in the event that you do not want to use Flash on your installation</li>
+  <li>Empty repositories now link to an <em>empty repository</em> page which gives some direction to the user for the next step in using Gitblit. This page displays the primary push/clone url of the repository and gives sample syntax for the git command-line client. (<a href='http://code.google.com/p/gitblit/issues/detail?id=31'>issue 31</a>)</li>
+  <li>Repositories with a <em>gh-pages</em> branch will now have a <em>pages</em> link which will serve the content of this branch. All resource requests are against the repository, Gitblit does not checkout/export this branch to a temporary filesystem. Jekyll templating is not supported.</li>
+  <li>Gitblit Express bundle to get started running Gitblit on RedHat's OpenShift cloud <span class="label label-warning">BETA</span></li>
+</ul>
+<h4 class="section" id='H25'><a href="#H25" class="sectionlink"><i class="icon-share-alt"> </i></a>changes</h4>
+<ul>
+  <li>Dropped display of trailing .git from repository names</li>
+  <li>Gitblit GO is now monolithic like the WAR build. (<a href='http://code.google.com/p/gitblit/issues/detail?id=30'>issue 30</a>)<br/><br/>This change helps adoption of GO in environments without an internet connection or with a restricted connection.</li>
+  <li>Unit testing framework has been migrated to JUnit4 syntax and the test suite has been redesigned to run all unit tests, including rpc, federation, and git push/clone tests</li>
+</ul>
+<h4 class="section" id='H26'><a href="#H26" class="sectionlink"><i class="icon-share-alt"> </i></a>fixes</h4>
+<ul>
+  <li>Several a bugs in FileUserService related to cleaning up old repository permissions on a rename or delete</li>
+  <li>Renaming a repository into a new subfolder failed (<a href='http://code.google.com/p/gitblit/issues/detail?id=33'>issue 33</a>)</li>
+</ul>
+<h4 class="section" id='H27'><a href="#H27" class="sectionlink"><i class="icon-share-alt"> </i></a>dependency changes</h4>
+<ul>
+  <li>updated to JGit 1.2.0</li>
+  <li>added Groovy 1.8.5</li>
+  <li>added Clippy (bundled)</li>
+</ul>
+<hr/><p><strong>0.7.0</strong> &nbsp; <em>released 2011-11-11</em></p>
+<ul>
+  <li><strong>security</strong>: fixed security hole when cloning clone-restricted repository with TortoiseGit (<a href='http://code.google.com/p/gitblit/issues/detail?id=28'>issue 28</a>)</li>
+  <li>improved: updated ui with Twitter's Bootstrap CSS toolkit<br/><br/><strong>New:</strong> <em>web.loginMessage = gitblit</em></li>
+  <li>improved: repositories list performance by caching repository sizes (<a href='http://code.google.com/p/gitblit/issues/detail?id=27'>issue 27</a>)</li>
+  <li>improved: summary page performance by caching metric calculations (<a href='http://code.google.com/p/gitblit/issues/detail?id=25'>issue 25</a>)</li>
+  <li>added: authenticated JSON RPC mechanism<br/><br/><strong>New:</strong> <em>web.enableRpcServlet = true</em><br/><br/><strong>New:</strong> <em>web.enableRpcManagement = false</em><br/><br/><strong>New:</strong> <em>web.enableRpcAdministration = false</em></li>
+  <li>added: Gitblit API RSS/JSON RPC library</li>
+  <li>added: Gitblit Manager (Java/Swing Application) for remote administration of a Gitblit server.</li>
+  <li>added: per-repository setting to skip size calculation (faster repositories page loading)</li>
+  <li>added: per-repository setting to skip summary metrics calculation (faster summary page loading)</li>
+  <li>added: IUserService.setup(IStoredSettings) for custom user service implementations</li>
+  <li>added: setting to control Gitblit GO context path for proxy setups <em>(Github/trygvis)</em><br/><br/><strong>New:</strong> <em>server.contextPath = /</em></li>
+  <li>added: <em>combined-md5</em> password storage option which stores the hash of username+password as the password <em>(Github/alyandon)</em></li>
+  <li>added: repository owners are automatically granted access for git, feeds, and zip downloads without explicitly selecting them <em>(Github/dadalar)</em></li>
+  <li>added: RSS feeds now include regex substitutions on commit messages for bug trackers, etc</li>
+  <li>fixed: federation protocol timestamps. dates are now serialized to the <a href="http://en.wikipedia.org/wiki/ISO_8601">iso8601</a> standard.<br/><br/><strong>This breaks 0.6.0 federation clients/servers.</strong></li>
+  <li>fixed: collision on rename for repositories and users</li>
+  <li>fixed: Gitblit can now browse the Linux kernel repository (<a href='http://code.google.com/p/gitblit/issues/detail?id=25'>issue 25</a>)</li>
+  <li>fixed: Gitblit now runs on Servlet 3.0 webservers (e.g. Tomcat 7, Jetty 8) (<a href='http://code.google.com/p/gitblit/issues/detail?id=23'>issue 23</a>)</li>
+  <li>fixed: Set the RSS content type of syndication feeds for Firefox 4 (<a href='http://code.google.com/p/gitblit/issues/detail?id=22'>issue 22</a>)</li>
+  <li>fixed: RSS feeds are now properly encoded to UTF-8</li>
+  <li>fixed: RSS feeds now properly generate parameterized links if <em>web.mountParameters=false</em></li>
+  <li>fixed: Null pointer exception if did not set federation strategy (<a href='http://code.google.com/p/gitblit/issues/detail?id=20'>issue 20</a>)</li>
+  <li>fixed: Gitblit GO allows SSL renegotiation if running on Java 1.6.0_22 or later</li>
+  <li>updated: MarkdownPapers 1.2.5</li>
+  <li>updated: Wicket 1.4.19</li>
+</ul>
+<hr/><p><strong>0.6.0</strong> &nbsp; <em>released 2011-09-27</em></p>
+<ul>
+  <li>added: federation feature to allow gitblit instances (or gitblit federation clients) to pull repositories and, optionally, settings and accounts from other gitblit instances. This is something like <a href="http://svnbook.red-bean.com/en/1.5/svn.ref.svnsync.html">svn-sync</a> for gitblit.<br/><br/><strong>New:</strong> <em>federation.name =</em><br/><br/><strong>New:</strong> <em>federation.passphrase =</em><br/><br/><strong>New:</strong> <em>federation.allowProposals = false</em><br/><br/><strong>New:</strong> <em>federation.proposalsFolder = proposals</em><br/><br/><strong>New:</strong> <em>federation.defaultFrequency = 60 mins</em><br/><br/><strong>New:</strong> <em>federation.sets =</em><br/><br/><strong>New:</strong> <em>mail.</em> settings for sending emails<br/><br/><strong>New:</strong> user role <em>#notfederated</em> to prevent a user account from being pulled by a federated Gitblit instance</li>
+  <li>added: google-gson dependency</li>
+  <li>added: javamail dependency</li>
+  <li>updated: MarkdownPapers 1.1.1</li>
+  <li>updated: Wicket 1.4.18</li>
+  <li>updated: JGit 1.1.0</li>
+  <li>fixed: syndication urls for WAR deployments</li>
+  <li>fixed: authentication for zip downloads</li>
+</ul>
+<hr/><p><strong>0.5.2</strong> &nbsp; <em>released 2011-07-27</em></p>
+<ul>
+  <li>fixed: active repositories with a HEAD that pointed to an empty branch caused internal errors (<a href='http://code.google.com/p/gitblit/issues/detail?id=14'>issue 14</a>)</li>
+  <li>fixed: bare-cloned repositories were listed as (empty) and were not clickable (<a href='http://code.google.com/p/gitblit/issues/detail?id=13'>issue 13</a>)</li>
+  <li>fixed: default port for Gitblit GO is now 8443 to be more linux/os x friendly (<a href='http://code.google.com/p/gitblit/issues/detail?id=12'>issue 12</a>)</li>
+  <li>fixed: repositories can now be reliably deleted and renamed (<a href='http://code.google.com/p/gitblit/issues/detail?id=10'>issue 10</a>)</li>
+  <li>fixed: users can now change their passwords (<a href='http://code.google.com/p/gitblit/issues/detail?id=1'>issue 1</a>)</li>
+  <li>fixed: always show root repository group first, i.e. don't sort root group with other groups</li>
+  <li>fixed: tone-down repository group header color</li>
+  <li>added: optionally display repository on-disk size on repositories page<br/><br/><strong>New:</strong> <em>web.showRepositorySizes = true</em></li>
+  <li>added: forward-slashes ('/', %2F) can be encoded using a custom character to workaround some servlet container default security measures for proxy servers<br/><br/><strong>New:</strong> <em>web.forwardSlashCharacter = /</em></li>
+  <li>updated: MarkdownPapers 1.1.0</li>
+  <li>updated: Jetty 7.4.3</li>
+</ul>
+<hr/><p><strong>0.5.1</strong> &nbsp; <em>released 2011-06-28</em></p>
+<ul>
+  <li>clarified SSL certificate generation and configuration for both server-side and client-side</li>
+  <li>added some more troubleshooting information to documentation</li>
+  <li>replaced JavaService with Apache Commons Daemon</li>
+</ul>
+<hr/><p><strong>0.5.0</strong> &nbsp; <em>released 2011-06-26</em></p>
+<ul>
+  <li>initial release</li>
+</ul>
+<!-- End Markdown -->
+<footer class="footer"><p class="pull-right">generated 2014-06-16</p>
+<p>The content of this page is licensed under the <a href="http://creativecommons.org/licenses/by/3.0">Creative Commons Attribution 3.0 License</a>.</p>
+</footer>
+</div>
+</body>
+</html>
