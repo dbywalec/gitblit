@@ -132,8 +132,7 @@
   <li>You may have to manually extract the WAR (zip file) to a folder within your webapps folder.</li>
   <li>By default, the Gitblit webapp is configured through <code>WEB-INF/data/gitblit.properties</code>.<br/>Open <code>WEB-INF/data/gitblit.properties</code> in your favorite text editor and make sure to review and set:
   <ul>
-    <li>&lt;context-parameter&gt; <em>git.packedGitLimit</em> (set larger than the size of your largest repository)</li>
-    <li>&lt;context-parameter&gt; <em>git.streamFileThreshold</em> (set larger than the size of your largest committed file)</li>
+    <li><em>git.packedGitLimit</em> (set larger than the size of your largest repository)</li>
   </ul></li>
   <li>You may have to restart your servlet container.</li>
   <li>Open your browser to <a href="http://localhost/gitblit">http://localhost/gitblit</a> or whatever the url should be.</li>
@@ -147,7 +146,7 @@
   <li>Insert an <em>Environment</em> node within the <em>Context</em> node.<pre>&lt;Environment name="baseFolder" type="java.lang.String" value="c:/projects/git/gitblit/data" override="false" /&gt;</pre></li>
 </ol>
 <!-- End Markdown -->
-<div ><ul class="pager"> <li class="next"><a href="upgrade_war.html">upgrade WAR &rarr;</a></li></ul></div><footer class="footer"><p class="pull-right">generated 2014-06-16</p>
+<div ><ul class="pager"> <li class="next"><a href="upgrade_war.html">upgrade WAR &rarr;</a></li></ul></div><footer class="footer"><p class="pull-right">generated 2014-10-15</p>
 <p>The content of this page is licensed under the <a href="http://creativecommons.org/licenses/by/3.0">Creative Commons Attribution 3.0 License</a>.</p>
 </footer>
 </div>

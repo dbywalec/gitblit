@@ -134,7 +134,6 @@
     <li><em>server.httpPort</em> and <em>server.httpsPort</em></li>
     <li><em>server.storePassword</em> (do not enter <em>#</em> characters)<br/><strong>https</strong> is strongly recommended because passwords are insecurely transmitted form your browser/git client using Basic authentication!</li>
     <li><em>git.packedGitLimit</em> (set larger than the size of your largest repository)</li>
-    <li><em>git.streamFileThreshold</em> (set larger than the size of your largest committed file)</li>
   </ul></li>
   <li>Execute <code>authority.cmd</code> or <code>java -cp gitblit.jar com.gitblit.authority.Launcher --baseFolder data</code> from a command-line<br/><strong>NOTE:</strong> The Authority is a Swing GUI application. Use of this tool is not required as Gitblit GO will startup and create SSL certificates itself, BUT use of this tool allows you to control the identification metadata used in the generated certificates. Skipping this step will result in certificates with default metadata.
   <ol>
@@ -215,7 +214,7 @@ Reason: https:/myserver.com/git/myrepo.git: cannot open git-upload-pack
 <pre><code>java -Dlog4j.configuration=file:///home/james/log4j.properties -jar gitblit.jar &lt;optional_gitblit_args&gt;
 </code></pre><p>You can not use override the default log4j configuration <em>AND</em> specify the <code>--dailyLogFile</code> parameter. For reference, here is <a href="https://github.com/gitblit/gitblit/blob/master/src/log4j.properties">Gitblit's default Log4j configuration</a>. It includes some file appenders that are disabled by default. 
 <!-- End Markdown -->
-<div ><ul class="pager"> <li class="next"><a href="upgrade_go.html">upgrade GO &rarr;</a></li></ul></div><footer class="footer"><p class="pull-right">generated 2014-06-16</p>
+<div ><ul class="pager"> <li class="next"><a href="upgrade_go.html">upgrade GO &rarr;</a></li></ul></div><footer class="footer"><p class="pull-right">generated 2014-10-15</p>
 <p>The content of this page is licensed under the <a href="http://creativecommons.org/licenses/by/3.0">Creative Commons Attribution 3.0 License</a>.</p>
 </footer>
 </div>
