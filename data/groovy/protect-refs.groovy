@@ -81,7 +81,12 @@ def protectedCmds = [
 // list of regex patterns for protected refs
 def protectedRefs = [
 	"refs/heads/master",
-	"refs/tags/.+"
+	"refs/heads/release/.+",
+	"refs/heads/feature/.+",
+	"refs/heads/bugfix/.+",
+	"refs/heads/project/.+",
+	"refs/tags/build/.+",
+	"refs/tags/release/.+"
 ]
 
 // teams which are authorized to perform protected commands on protected refs
