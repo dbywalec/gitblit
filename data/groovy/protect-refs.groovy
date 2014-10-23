@@ -74,34 +74,88 @@ import org.slf4j.Logger
 // map of protected command types to returned results type
 // commands not included will skip authz check
 def protectedCmds = [
+	CREATE:					Result.REJECTED_OTHER_REASON,
+	UPDATE:	                Result.REJECTED_OTHER_REASON,
 	UPDATE_NONFASTFORWARD:	Result.REJECTED_NONFASTFORWARD,
 	DELETE:					Result.REJECTED_NODELETE
 ]
 
 // list of regex patterns for protected refs
-def protectedRefs = [
+def protectedCreateRefs = [
+	"refs/heads/master",
+	"refs/heads/release/.+",
+	"refs/heads/project/.+",
+	"refs/heads/clearcase/.+",
+	"refs/tags/clearcase/.+",
+	"refs/tags/import/OK",
+	"refs/tags/test/20141016_084456"
+]
+
+def protectedUpdateRefs = [
+	"refs/heads/clearcase/.+",
+	"refs/tags/build/.+",
+	"refs/tags/clearcase/.+",
+	"refs/tags/release/.+"
+]
+
+def protectedUpdateNoFastForwardRefs = [
 	"refs/heads/master",
 	"refs/heads/release/.+",
 	"refs/heads/feature/.+",
 	"refs/heads/bugfix/.+",
 	"refs/heads/project/.+",
+	"refs/heads/clearcase/.+",
 	"refs/tags/build/.+",
+	"refs/tags/clearcase/.+",
+	"refs/tags/release/.+"
+]
+
+def protectedDeleteRefs = [
+	"refs/heads/master",
+	"refs/heads/release/.+",
+	"refs/heads/feature/.+",
+	"refs/heads/bugfix/.+",
+	"refs/heads/project/.+",
+	"refs/heads/clearcase/.+",
+	"refs/tags/build/.+",
+	"refs/tags/clearcase/.+",
 	"refs/tags/release/.+"
 ]
 
 // teams which are authorized to perform protected commands on protected refs
-def authorizedTeams = [ "admins" ]
+def authorizedTeams = [ "Gitblit Administrators" ]
 
 for (ReceiveCommand command : commands) {
+
 	def updateType = command.type
 	def updatedRef = command.refName
+
+    def refPattern
 	
-	// find first regex which matches updated ref, if any
-	def refPattern = protectedRefs.find { updatedRef.matches ~it }
-	
+    // find first regex which matches updated ref, if any
+	switch (command.type) {
+		case ReceiveCommand.Type.CREATE:
+			refPattern = protectedCreateRefs.find { updatedRef.matches ~it }
+			result = protectedCmds[updateType.name()]
+			break
+		case ReceiveCommand.Type.UPDATE:
+			refPattern = protectedUpdateRefs.find { updatedRef.matches ~it }
+			result = protectedCmds[updateType.name()]
+			break
+		case ReceiveCommand.Type.UPDATE_NONFASTFORWARD:
+			refPattern = protectedUpdateNoFastForwardRefs.find { updatedRef.matches ~it }
+			result = protectedCmds[updateType.name()]
+			break
+		case ReceiveCommand.Type.DELETE:
+			refPattern = protectedDeleteRefs.find { updatedRef.matches ~it }
+			break
+		default:
+			break
+	}
+
 	// find rejection result for update type, if any
 	def result = protectedCmds[updateType.name()]
-	
+
 	// command requires authz if ref is protected and has a mapped rejection result
 	if (refPattern && result) {
 	
