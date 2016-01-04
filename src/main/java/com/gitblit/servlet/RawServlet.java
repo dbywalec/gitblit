@@ -166,23 +166,14 @@ public class RawServlet extends HttpServlet {
 		}
 
 		// determine repository and resource from url
-		String repository = "";
+		String repository = path;
 		Repository r = null;
-		int offset = 0;
-		while (r == null) {
-			int slash = path.indexOf('/', offset);
-			if (slash == -1) {
-				repository = path;
-			} else {
-				repository = path.substring(0, slash);
-			}
-			offset = ( slash + 1 );
+		int terminator = repository.length();
+		do {
+			repository = repository.substring(0, terminator);
 			r = repositoryManager.getRepository(repository, false);
-			if (repository.equals(path)) {
-				// either only repository in url or no repository found
-				break;
-			}
-		}
+			terminator = repository.lastIndexOf('/');
+		} while (r == null && terminator > -1 );
 
 		ServletContext context = request.getSession().getServletContext();
 
@@ -242,7 +233,14 @@ public class RawServlet extends HttpServlet {
 				try {
 
 					String ext = StringUtils.getFileExtension(file).toLowerCase();
-					String contentType = quickContentTypes.get(ext);
+					// We can't parse out an extension for classic "dotfiles", so make a general assumption that
+					// they're text files to allow presenting them in browser instead of only for download.
+					//
+					// However, that only holds for files with no other extension included, for files that happen
+					// to start with a dot but also include an extension, process the extension normally.
+					// This logic covers .gitattributes, .gitignore, .zshrc, etc., but does not cover .mongorc.js, .zshrc.bak
+					boolean isExtensionlessDotfile = file.charAt(0) == '.' && (file.length() == 1 || file.indexOf('.',  1) < 0);
+					String contentType = isExtensionlessDotfile ? "text/plain" : quickContentTypes.get(ext);
 
 					if (contentType == null) {
 						List<String> exts = runtimeManager.getSettings().getStrings(Keys.web.prettyPrintExtensions);
