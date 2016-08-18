@@ -30,7 +30,7 @@ import org.apache.sshd.common.io.mina.MinaServiceFactoryFactory;
 import org.apache.sshd.common.io.nio2.Nio2ServiceFactoryFactory;
 import org.apache.sshd.common.util.SecurityUtils;
 import org.apache.sshd.server.SshServer;
-import org.apache.sshd.server.auth.CachingPublicKeyAuthenticator;
+import org.apache.sshd.server.auth.pubkey.CachingPublicKeyAuthenticator;
 import org.bouncycastle.openssl.PEMWriter;
 import org.eclipse.jgit.internal.JGitText;
 import org.slf4j.Logger;
@@ -130,7 +130,7 @@ public class SshDaemon {
 		if (settings.getBoolean(Keys.git.sshWithKrb5, false)) {
 			sshd.setGSSAuthenticator(new SshKrbAuthenticator(settings, gitblit));
 		}
-		sshd.setSessionFactory(new SshServerSessionFactory());
+		sshd.setSessionFactory(new SshServerSessionFactory(sshd));
 		sshd.setFileSystemFactory(new DisabledFilesystemFactory());
 		sshd.setTcpipForwardingFilter(new NonForwardingFilter());
 		sshd.setCommandFactory(new SshCommandFactory(gitblit, workQueue));

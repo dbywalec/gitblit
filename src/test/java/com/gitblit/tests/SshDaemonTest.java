@@ -29,6 +29,9 @@ import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 import org.eclipse.jgit.util.FileUtils;
 import org.junit.Test;
 
+import org.apache.sshd.client.future.ConnectFuture;
+import org.apache.sshd.client.future.AuthFuture;
+
 import com.gitblit.Constants;
 import com.gitblit.Constants.AccessRestrictionType;
 import com.gitblit.Constants.AuthorizationControl;
@@ -44,9 +47,17 @@ public class SshDaemonTest extends SshUnitTest {
 	@Test
 	public void testPublicKeyAuthentication() throws Exception {
 		SshClient client = getClient();
-		ClientSession session = client.connect(username, "localhost", GitBlitSuite.sshPort).await().getSession();
-		session.addPublicKeyIdentity(rwKeyPair);
-		assertTrue(session.auth().await().isSuccess());
+		
+		ConnectFuture connectFuture = client.connect(username, "localhost", GitBlitSuite.sshPort);
+		
+		if (connectFuture.await()) {
+			ClientSession session = connectFuture.getSession();
+			session.addPublicKeyIdentity(rwKeyPair);
+			
+			AuthFuture authFuture = session.auth();
+			authFuture.await();
+			assertTrue(authFuture.isSuccess());
+		}
 	}
 
 	@Test

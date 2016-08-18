@@ -26,10 +26,12 @@ import java.security.KeyPairGenerator;
 import java.security.PublicKey;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-import org.apache.sshd.client.ServerKeyVerifier;
+import org.apache.sshd.client.keyverifier.ServerKeyVerifier;
 import org.apache.sshd.client.SshClient;
 import org.apache.sshd.client.channel.ClientChannel;
 import org.apache.sshd.client.session.ClientSession;
+import org.apache.sshd.client.future.ConnectFuture;
+import org.apache.sshd.client.future.AuthFuture;
 import org.apache.sshd.common.util.SecurityUtils;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -111,31 +113,44 @@ public abstract class SshUnitTest extends GitblitUnitTest {
 	}
 
 	protected String testSshCommand(String cmd, String stdin) throws IOException, InterruptedException {
+		String result = "";
 		SshClient client = getClient();
-		ClientSession session = client.connect(username, "localhost", GitBlitSuite.sshPort).await().getSession();
-		session.addPublicKeyIdentity(rwKeyPair);
-		assertTrue(session.auth().await().isSuccess());
+		
+		ConnectFuture connectFuture = client.connect(username, "localhost", GitBlitSuite.sshPort);
+		
+		if (connectFuture.await()) {
+			ClientSession session = connectFuture.getSession();
+			session.addPublicKeyIdentity(rwKeyPair);
+			
+			AuthFuture authFuture = session.auth();
+			if (authFuture.await()) {
 
-		ClientChannel channel = session.createChannel(ClientChannel.CHANNEL_EXEC, cmd);
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		if (stdin != null) {
-			Writer w = new OutputStreamWriter(baos);
-			w.write(stdin);
-			w.close();
+				ClientChannel channel = session.createChannel(ClientChannel.CHANNEL_EXEC, cmd);
+				
+				ByteArrayOutputStream baos = new ByteArrayOutputStream();
+				if (stdin != null) {
+					Writer w = new OutputStreamWriter(baos);
+					w.write(stdin);
+					w.close();
+				}
+				channel.setIn(new ByteArrayInputStream(baos.toByteArray()));
+				
+				ByteArrayOutputStream out = new ByteArrayOutputStream();
+				ByteArrayOutputStream err = new ByteArrayOutputStream();
+				channel.setOut(out);
+				channel.setErr(err);
+				channel.open().await();
+				result = out.toString().trim();
+				channel.close(false).await();
+				client.stop();
+				return result;
+			} else {
+				fail();
+			}
+		} else {
+			fail();
 		}
-		channel.setIn(new ByteArrayInputStream(baos.toByteArray()));
-
-		ByteArrayOutputStream out = new ByteArrayOutputStream();
-		ByteArrayOutputStream err = new ByteArrayOutputStream();
-		channel.setOut(out);
-		channel.setErr(err);
-		channel.open();
-
-		channel.waitFor(ClientChannel.CLOSED, 0);
-
-		String result = out.toString().trim();
-		channel.close(false);
-		client.stop();
-		return result;
+		
+		return result; 
 	}
 }
