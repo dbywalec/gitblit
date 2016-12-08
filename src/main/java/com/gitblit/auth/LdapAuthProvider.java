@@ -638,7 +638,16 @@ public class LdapAuthProvider extends UsernamePasswordAuthenticationProvider {
 			ldapConnection.bind(userDn, password);
 			return true;
 		} catch (LDAPException e) {
-			logger.error(MessageFormat.format("Error authenticating userDn ''{0}''", userDn), e);
+			boolean logAuthException = settings.getBoolean(Keys.realm.ldap.logAuthException, true);
+
+			String msg = MessageFormat.format("Error authenticating userDn ''{0}''", userDn);
+			
+			if ( logAuthException ) {
+				logger.error(msg, e);
+			} else {
+				logger.error(msg);
+			}
+
 			return false;
 		}
 	}
