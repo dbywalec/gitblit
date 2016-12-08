@@ -433,7 +433,7 @@
 		</zip>
 		
 		<!-- Build API JavaDoc jar -->
-		<mx:javadoc destdir="${javadoc.dir}" redirect="true">
+		<mx:javadoc destdir="${javadoc.dir}" charset="utf-8" encoding="utf-8" docencoding="utf-8" redirect="true">
 			<fileset dir="${project.src.dir}" defaultexcludes="yes">
 				<include name="com/gitblit/Constants.java"/>
 				<include name="com/gitblit/GitBlitException.java"/>
@@ -1054,6 +1054,23 @@
 		<mx:jar destfile="${project.jar}" packageSources="true" includeresources="true" resourceFolderPrefix="${resourceFolderPrefix}" />
 
 		<mx:install />
+	</target>
+	
+	
+	<!--
+		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		Build Gitblit UI via npm
+		~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~	
+	-->
+	<target name="buildUI" description="Build Gitblit UI via npm">
+		<exec executable="npm" dir="src/main/js/" failonerror="true" vmlauncher="false" searchpath="true" >
+			<arg value="install" />
+		</exec>
+		
+		<exec executable="npm" dir="src/main/js/" failonerror="true" vmlauncher="false" searchpath="true" >
+			<arg value="run" />
+			<arg value="build" />
+		</exec>
 	</target>
 	
 </project>

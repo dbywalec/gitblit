@@ -638,7 +638,7 @@ public class LdapAuthProvider extends UsernamePasswordAuthenticationProvider {
 			ldapConnection.bind(userDn, password);
 			return true;
 		} catch (LDAPException e) {
-			logger.error(MessageFormat.format("Error authenticating userDn ''{0}'' with password ''{1}''", userDn, password), e);
+			logger.error(MessageFormat.format("Error authenticating userDn ''{0}''", userDn), e);
 			return false;
 		}
 	}

@@ -1944,6 +1944,12 @@ td.mode {
 	padding-right:15px;
 }
 
+td.filestore {
+	text-align: right;
+	width:1em;
+	padding-right:15px;
+}
+
 td.size {
 	text-align: right;
 	width: 8em;	
@@ -2065,10 +2071,6 @@ li.L3,
 li.L5,
 li.L7,
 li.L9 { background: #fafafa !important; }
-
-div.docs {
-	max-width: 880px;
-}
 
 div.docs ul.nav {	
 	margin-bottom: 0px !important;
@@ -2353,4 +2355,55 @@ div.markdown table.text th, div.markdown table.text td {
 
 .file-negative {
 	color:#D51900;
+}
+
+.filestore-item {
+	color:#815b3a;
+}
+
+.filestore-status {
+	display: inline;
+	font-size: 1.2em;
+}
+
+table.filestore-status {
+	border:none!important;
+	border-spacing: 10px 0px;
+    border-collapse: separate;
+}
+
+.filestore-status tr td a {
+	border:none!important;
+	margin-right:1.5em!important;
+	padding:0.25em;
+}
+
+.filestore-status td a:hover, .filestore-status td a.filter-on {
+	background-color: #eee;
+	border-radius:5px;
+}
+
+.filestore-status span:nth-child(2) {
+	font-weight:800;
+	margin-left:0.25em;
+}
+
+.delete-patchset {
+	color:#D51900;
+	font-size: 1.2em;
+}
+
+.ticketReference-comment {
+    font-family: sans-serif;
+    font-weight: 200;
+    font-size: 1em;
+    font-variant: normal;
+    text-transform: none;
+}
+
+.ticketReference-commit {
+    font-family: monospace;
+    font-weight: 200;
+    font-size: 1em;
+    font-variant: normal;
 }

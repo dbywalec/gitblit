@@ -73,8 +73,8 @@ public class WicketUtils {
 		container.add(new SimpleAttributeModifier("style", background));
 	}
 
-	public static void setHtmlTooltip(Component container, String value) {
-		container.add(new SimpleAttributeModifier("title", value));
+	public static Component setHtmlTooltip(Component container, String value) {
+		return container.add(new SimpleAttributeModifier("title", value));
 	}
 
 	public static void setInputPlaceholder(Component container, String value) {
@@ -414,6 +414,19 @@ public class WicketUtils {
 		parameterMap.put("h", objectId);
 		parameterMap.put("f", path);
 		parameterMap.put("pg", String.valueOf(pageNumber));
+		return new PageParameters(parameterMap);
+	}
+
+	public static PageParameters newFilestorePageParameter(int pageNumber, String filter) {
+		Map<String, String> parameterMap = new HashMap<String, String>();
+		
+		if (pageNumber > 1) {
+			parameterMap.put("pg", String.valueOf(pageNumber));
+		}
+		if (filter != null) {
+			parameterMap.put("s", String.valueOf(filter));
+		}
+		
 		return new PageParameters(parameterMap);
 	}
 

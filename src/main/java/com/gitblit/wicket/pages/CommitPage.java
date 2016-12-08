@@ -15,6 +15,7 @@
  */
 package com.gitblit.wicket.pages;
 
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -23,10 +24,14 @@ import org.apache.wicket.PageParameters;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.link.ExternalLink;
+import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.markup.repeater.data.ListDataProvider;
 import org.apache.wicket.model.StringResourceModel;
+import org.apache.wicket.request.target.resource.ResourceStreamRequestTarget;
+import org.apache.wicket.util.resource.AbstractResourceStreamWriter;
+import org.apache.wicket.util.resource.IResourceStream;
 import org.eclipse.jgit.diff.DiffEntry.ChangeType;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.revwalk.RevCommit;
@@ -35,9 +40,11 @@ import com.gitblit.Constants;
 import com.gitblit.models.GitNote;
 import com.gitblit.models.PathModel.PathChangeModel;
 import com.gitblit.models.SubmoduleModel;
+import com.gitblit.models.UserModel;
 import com.gitblit.servlet.RawServlet;
 import com.gitblit.utils.JGitUtils;
 import com.gitblit.wicket.CacheControl;
+import com.gitblit.wicket.GitBlitWebSession;
 import com.gitblit.wicket.CacheControl.LastModified;
 import com.gitblit.wicket.WicketUtils;
 import com.gitblit.wicket.panels.CommitHeaderPanel;
@@ -163,11 +170,14 @@ public class CommitPage extends RepositoryPage {
 			@Override
 			public void populateItem(final Item<PathChangeModel> item) {
 				final PathChangeModel entry = item.getModelObject();
+				
 				Label changeType = new Label("changeType", "");
 				WicketUtils.setChangeTypeCssClass(changeType, entry.changeType);
 				setChangeTypeTooltip(changeType, entry.changeType);
 				item.add(changeType);
 				item.add(new DiffStatPanel("diffStat", entry.insertions, entry.deletions, true));
+				item.add(WicketUtils.setHtmlTooltip(new Label("filestore", ""), getString("gb.filestore"))
+									.setVisible(entry.isFilestoreItem()));
 
 				boolean hasSubmodule = false;
 				String submodulePath = null;
@@ -194,9 +204,37 @@ public class CommitPage extends RepositoryPage {
 						path = JGitUtils.getStringContent(getRepository(), getCommit().getTree(), path);
 						displayPath = entry.path + " -> " + path;
 					}
-					item.add(new LinkPanel("pathName", "list", displayPath, BlobPage.class,
-							WicketUtils
-									.newPathParameter(repositoryName, entry.commitId, path)));
+					
+					if (entry.isFilestoreItem()) {
+						item.add(new LinkPanel("pathName", "list", entry.path, new Link<Object>("link", null) {
+							 
+							private static final long serialVersionUID = 1L;
+
+							@Override
+						    public void onClick() {
+						 
+						    	 IResourceStream resourceStream = new AbstractResourceStreamWriter() {
+						    		 								    	
+									private static final long serialVersionUID = 1L;
+
+									@Override 
+						    	      public void write(OutputStream output) {
+						    	   		 UserModel user =  GitBlitWebSession.get().getUser();
+									     user = user == null ? UserModel.ANONYMOUS : user;
+									    	
+						    	        app().filestore().downloadBlob(entry.getFilestoreOid(), user, getRepositoryModel(), output);
+						    	      }
+						    	  };
+						    	      
+						    	
+						    	getRequestCycle().setRequestTarget(new ResourceStreamRequestTarget(resourceStream, entry.path));
+						    }}));
+						
+						
+					} else {
+						item.add(new LinkPanel("pathName", "list", displayPath, BlobPage.class,
+							WicketUtils.newPathParameter(repositoryName, entry.commitId, path)));
+					}
 				}
 
 
@@ -220,12 +258,64 @@ public class CommitPage extends RepositoryPage {
 							.newPathParameter(repositoryName, entry.commitId, entry.path))
 							.setEnabled(!entry.changeType.equals(ChangeType.ADD)
 									&& !entry.changeType.equals(ChangeType.DELETE)));
-					item.add(new BookmarkablePageLink<Void>("view", BlobPage.class, WicketUtils
-							.newPathParameter(repositoryName, entry.commitId, entry.path))
-							.setEnabled(!entry.changeType.equals(ChangeType.DELETE)));
-					String rawUrl = RawServlet.asLink(getContextUrl(), repositoryName, entry.commitId, entry.path);
-					item.add(new ExternalLink("raw", rawUrl)
-							.setEnabled(!entry.changeType.equals(ChangeType.DELETE)));
+					
+					if (entry.isFilestoreItem()) {
+						item.add(new Link<Object>("view", null) {
+							 
+							private static final long serialVersionUID = 1L;
+
+							@Override
+						    public void onClick() {
+						 
+						    	 IResourceStream resourceStream = new AbstractResourceStreamWriter() {
+						    		 								    	
+									private static final long serialVersionUID = 1L;
+
+									@Override 
+						    	      public void write(OutputStream output) {
+						    	   		 UserModel user =  GitBlitWebSession.get().getUser();
+									     user = user == null ? UserModel.ANONYMOUS : user;
+									    	
+						    	        app().filestore().downloadBlob(entry.getFilestoreOid(), user, getRepositoryModel(), output);
+						    	      }
+						    	  };
+						    	      
+						    	
+						    	getRequestCycle().setRequestTarget(new ResourceStreamRequestTarget(resourceStream, entry.path));
+						    }});
+						
+						item.add(new Link<Object>("raw", null) {
+							 
+							private static final long serialVersionUID = 1L;
+
+							@Override
+						    public void onClick() {
+						 
+						    	 IResourceStream resourceStream = new AbstractResourceStreamWriter() {
+						    		 								    	
+									private static final long serialVersionUID = 1L;
+
+									@Override 
+						    	      public void write(OutputStream output) {
+						    	   		 UserModel user =  GitBlitWebSession.get().getUser();
+									     user = user == null ? UserModel.ANONYMOUS : user;
+									    	
+						    	        app().filestore().downloadBlob(entry.getFilestoreOid(), user, getRepositoryModel(), output);
+						    	      }
+						    	  };
+						    	      
+						    	
+						    	getRequestCycle().setRequestTarget(new ResourceStreamRequestTarget(resourceStream, entry.path));
+						    }});
+						    						
+					} else {
+						item.add(new BookmarkablePageLink<Void>("view", BlobPage.class, WicketUtils
+								.newPathParameter(repositoryName, entry.commitId, entry.path))
+								.setEnabled(!entry.changeType.equals(ChangeType.DELETE)));
+						String rawUrl = RawServlet.asLink(getContextUrl(), repositoryName, entry.commitId, entry.path);
+						item.add(new ExternalLink("raw", rawUrl)
+								.setEnabled(!entry.changeType.equals(ChangeType.DELETE)));
+					}
 					item.add(new BookmarkablePageLink<Void>("blame", BlamePage.class, WicketUtils
 							.newPathParameter(repositoryName, entry.commitId, entry.path))
 							.setEnabled(!entry.changeType.equals(ChangeType.ADD)
