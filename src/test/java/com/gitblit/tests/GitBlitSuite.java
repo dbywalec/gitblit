@@ -172,10 +172,10 @@ public class GitBlitSuite {
 		startGitblit();
 
 		if (REPOSITORIES.exists() || REPOSITORIES.mkdirs()) {
-			cloneOrFetch("helloworld.git", "https://github.com/git/hello-world.git");
+			cloneOrFetch("helloworld.git", "https://github.com/dbywalec/hello-world.git");
 			cloneOrFetch("ticgit.git", "https://github.com/schacon/ticgit.git");
 			cloneOrFetch("test/jgit.git", "https://github.com/eclipse/jgit.git");
-			cloneOrFetch("test/helloworld.git", "https://github.com/git/hello-world.git");
+			cloneOrFetch("test/helloworld.git", "https://github.com/dbywalec/hello-world.git");
 			cloneOrFetch("test/ambition.git", "https://github.com/defunkt/ambition.git");
 			cloneOrFetch("test/gitective.git", "https://github.com/kevinsawicki/gitective.git");
 
