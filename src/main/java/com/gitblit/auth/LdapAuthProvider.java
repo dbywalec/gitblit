@@ -420,8 +420,12 @@ public class LdapAuthProvider extends UsernamePasswordAuthenticationProvider {
 	private void getTeamsFromLdap(LdapConnection ldapConnection, String simpleUsername, SearchResultEntry loggingInUser, UserModel user) {
 		String loggingInUserDN = loggingInUser.getDN();
 
-		// Clear the users team memberships - we're going to get them from LDAP
-		user.teams.clear();
+		final boolean deleteRemovedLdapTeams = settings.getBoolean(Keys.realm.ldap.removeDeletedTeams, true);
+		
+		if (deleteRemovedLdapTeams) {
+			// Clear the users team memberships - we're going to get them from LDAP
+			user.teams.removeIf( team -> ( team.accountType == AccountType.LDAP ));
+		}
 
 		String groupBase = settings.getString(Keys.realm.ldap.groupBase, "");
 		String groupMemberPattern = settings.getString(Keys.realm.ldap.groupMemberPattern, "(&(objectClass=group)(member=${dn}))");
