@@ -18,6 +18,7 @@ package com.gitblit.ldap;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.security.GeneralSecurityException;
+import java.text.MessageFormat;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -258,7 +259,15 @@ public class LdapConnection implements AutoCloseable {
 			isAuthenticated = true;
 			userBindRequest = ubr;
 		} catch (LDAPException e) {
-			logger.error("Error authenticating user ({})", userDn, e);
+			boolean logAuthException = settings.getBoolean(Keys.realm.ldap.logAuthException, true);
+
+			String msg = MessageFormat.format("Error authenticating userDn ({})", userDn);
+			
+			if ( logAuthException ) {
+				logger.error(msg, e);
+			} else {
+				logger.error(msg);
+			}
 		}
 
 		try {
