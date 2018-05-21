@@ -34,6 +34,7 @@ import org.apache.sshd.common.util.security.bouncycastle.BouncyCastleSecurityPro
 import org.apache.sshd.common.util.security.eddsa.EdDSASecurityProviderRegistrar;
 import org.apache.sshd.server.SshServer;
 import org.apache.sshd.server.auth.pubkey.CachingPublicKeyAuthenticator;
+import org.apache.sshd.server.forward.AcceptAllForwardingFilter;
 import org.bouncycastle.openssl.PEMWriter;
 import org.eclipse.jgit.internal.JGitText;
 import org.slf4j.Logger;
@@ -164,7 +165,7 @@ public class SshDaemon {
 
 		sshd.setSessionFactory(new SshServerSessionFactory(sshd));
 		sshd.setFileSystemFactory(new DisabledFilesystemFactory());
-		sshd.setTcpipForwardingFilter(new NonForwardingFilter());
+        sshd.setForwardingFilter(AcceptAllForwardingFilter.INSTANCE);
 		sshd.setCommandFactory(new SshCommandFactory(gitblit, workQueue));
 		sshd.setShellFactory(new WelcomeShell(gitblit));
 
