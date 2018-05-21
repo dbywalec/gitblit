@@ -52,7 +52,8 @@ public class SshAcceptor extends Nio2Acceptor {
             try {
                 // Create a session
                 IoHandler handler = getIoHandler();
-                session = ValidateUtils.checkNotNull(createSession(SshAcceptor.this, address, result, handler), "No SSH session created");
+                setSocketOptions(result);
+                session = Objects.requireNonNull(createSession(SshAcceptor.this, address, result, handler), "No SSH session created");
                 handler.sessionCreated(session);
                 sessions.put(session.getId(), session);
                 session.startReading();
@@ -71,41 +72,12 @@ public class SshAcceptor extends Nio2Acceptor {
                     }
                 }
             }
-            
-            int retryCount = 60;
-            boolean exitLoop = false;
-            
-            while ( !exitLoop && 0 < retryCount ) {
-            	try {
-                	// Accept new connections
-                    socket.accept(address, this);
-                    exitLoop = true;
-                } catch (Throwable exc) {
-                    failed(exc, address);
-                }
-                
-                if ( !exitLoop ) {
 
-                	log.warn("Retrying accept incoming connections on socket " + address);
-                	
-                	try {
-						Thread.sleep(1000);
-					} catch (InterruptedException e) {
-		                log.warn("Caught " + e.getClass().getSimpleName()
-		                        + " while wating on socket accept retry " + address
-		                        + ": " + e.getMessage(),
-		                         e);
-						exitLoop = true;
-					}
-                }
-                
-                if ( !exitLoop ) {
-                	--retryCount;
-                }
-            }
-            
-            if ( !exitLoop && 0 == retryCount ) {
-            	log.error("Retrying accept incoming connections on socket failed " + address);
+            try {
+                // Accept new connections
+                socket.accept(address, this);
+            } catch (Throwable exc) {
+                failed(exc, address);
             }
         }
 
@@ -127,5 +99,5 @@ public class SshAcceptor extends Nio2Acceptor {
                         exc);
             }
         }
-    }    
+    }
 }
