@@ -280,7 +280,7 @@ public class LdapAuthProvider extends UsernamePasswordAuthenticationProvider {
 					SearchResultEntry loggingInUser = result.getSearchEntries().get(0);
 					String loggingInUserDN = loggingInUser.getDN();
 
-					if (ldapConnection.isAuthenticated(loggingInUserDN, passwd)) {
+					if (ldapConnection.isAuthenticated(loggingInUserDN, username, passwd)) {
 						logger.debug("LDAP authenticated: " + username);
 
 						UserModel user = null;

@@ -234,7 +234,7 @@ public class LdapConnection implements AutoCloseable {
 
 
 
-	public boolean isAuthenticated(String userDn, String password) {
+	public boolean isAuthenticated(String userDn, String username, String password) {
 		verifyCurrentBinding();
 
 		// If the currently bound DN is already the DN of the logging in user, authentication has already happened
@@ -244,32 +244,36 @@ public class LdapConnection implements AutoCloseable {
 		// and thus skip the repeated binding.
 		// This check also makes sure that the DN in realm.ldap.bindpattern actually matches the DN that was found
 		// when searching the user entry.
-		String boundDN = currentBindRequest.getBindDN();
-		if (boundDN != null && boundDN.equals(userDn)) {
-			return true;
-		}
 
 		// Bind a the logging in user to check for authentication.
 		// Afterwards, bind as the original bound DN again, to restore the previous authorization.
 		boolean isAuthenticated = false;
-		try {
-			// Binding will stop any LDAP-Injection Attacks since the searched-for user needs to bind to that DN
-			SimpleBindRequest ubr = new SimpleBindRequest(userDn, password);
-			conn.bind(ubr);
-			isAuthenticated = true;
-			userBindRequest = ubr;
-		} catch (LDAPException e) {
-			boolean logAuthException = settings.getBoolean(Keys.realm.ldap.logAuthException, true);
-
-			String msg = MessageFormat.format("Error authenticating userDn ({})", userDn);
+		
+		if(userDn != null && !userDn.isEmpty()) {
+			String boundDN = currentBindRequest.getBindDN();
+			if (boundDN != null && boundDN.equals(userDn)) {
+				return true;
+			}
 			
-			if ( logAuthException ) {
-				logger.error(msg, e);
-			} else {
-				logger.error(msg);
+			try {
+				// Binding will stop any LDAP-Injection Attacks since the searched-for user needs to bind to that DN
+				SimpleBindRequest ubr = new SimpleBindRequest(userDn, password);
+				conn.bind(ubr);
+				isAuthenticated = true;
+				userBindRequest = ubr;
+			} catch (LDAPException e) {
+				boolean logAuthException = settings.getBoolean(Keys.realm.ldap.logAuthException, true);
+
+				if ( logAuthException ) {
+					String msg = MessageFormat.format("Error authenticating userDn ({0})", userDn);
+					logger.error(msg, e);
+				} else {
+					String msg = MessageFormat.format("Error authenticating user: {0}", username);
+					logger.error(msg);
+				}
 			}
 		}
-
+		
 		try {
 			conn.bind(currentBindRequest);
 		} catch (LDAPException e) {
