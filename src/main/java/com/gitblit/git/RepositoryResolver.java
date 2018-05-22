@@ -106,6 +106,8 @@ public class RepositoryResolver<X> extends FileResolver<X> {
 			// ssh is always authenticated
 			SshDaemonClient client = (SshDaemonClient) req;
 			user = client.getUser();
+			scheme = "ssh";
+			origin = client.getRemoteAddress().toString();
 		}
 
 		if (user.canClone(model)) {

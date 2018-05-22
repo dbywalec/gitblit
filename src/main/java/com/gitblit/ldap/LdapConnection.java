@@ -266,10 +266,10 @@ public class LdapConnection implements AutoCloseable {
 
 				if ( logAuthException ) {
 					String msg = MessageFormat.format("Error authenticating userDn ({0})", userDn);
-					logger.error(msg, e);
+					logger.warn(msg, e);
 				} else {
-					String msg = MessageFormat.format("Error authenticating user: {0}", username);
-					logger.error(msg);
+					String msg = MessageFormat.format("Error authenticating user ({0})", username);
+					logger.trace(msg);
 				}
 			}
 		}

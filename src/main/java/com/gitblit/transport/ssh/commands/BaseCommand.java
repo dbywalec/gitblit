@@ -24,6 +24,7 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.text.MessageFormat;
 import java.util.concurrent.Future;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -33,13 +34,18 @@ import org.apache.sshd.server.Environment;
 import org.apache.sshd.server.ExitCallback;
 import org.apache.sshd.server.SessionAware;
 import org.apache.sshd.server.session.ServerSession;
+import org.eclipse.jgit.errors.RepositoryNotFoundException;
+import org.eclipse.jgit.transport.resolver.ServiceNotAuthorizedException;
+import org.eclipse.jgit.transport.resolver.ServiceNotEnabledException;
 import org.kohsuke.args4j.Argument;
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.Option;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.gitblit.IStoredSettings;
 import com.gitblit.Keys;
+import com.gitblit.manager.IGitblit;
 import com.gitblit.utils.StringUtils;
 import com.gitblit.utils.WorkQueue;
 import com.gitblit.utils.WorkQueue.CancelableRunnable;
@@ -419,17 +425,46 @@ public abstract class BaseCommand implements Command, SessionAware {
 
 		if (e instanceof UnloggedFailure) {
 		} else {
-			final StringBuilder m = new StringBuilder();
-			m.append("Internal server error");
-			String user = ctx.getClient().getUsername();
-			if (user != null) {
-				m.append(" (user ");
-				m.append(user);
-				m.append(")");
+			
+			IGitblit gitblit = ctx.getGitblit();
+			IStoredSettings settings = gitblit.getSettings();
+			
+			final boolean logInternalServerErrorException = settings.getBoolean(Keys.git.sshCommandLogInternalServerErrorException, true);
+
+			if ( logInternalServerErrorException ) {
+				final StringBuilder m = new StringBuilder();
+				m.append("Internal server error");
+				String user = ctx.getClient().getUsername();
+				if (user != null) {
+					m.append(" (user ");
+					m.append(user);
+					m.append(")");
+				}
+				m.append(" during ");
+				m.append(ctx.getCommandLine());
+				log.error(m.toString(), e);
+			} else if (e instanceof Failure) {
+				final Failure f = (Failure) e;
+				Throwable cause = f.getCause();
+				
+				if (cause instanceof RepositoryNotFoundException ||
+					cause instanceof ServiceNotAuthorizedException ||
+					cause instanceof ServiceNotEnabledException) {
+					final StringBuilder m = new StringBuilder();
+					m.append(cause.getMessage());
+					String user = ctx.getClient().getUsername();
+					if (user != null) {
+						m.append(" (user ");
+						m.append(user);
+						m.append(")");
+					}
+					m.append(" during ");
+					m.append(ctx.getCommandLine());
+					log.warn(m.toString());
+				} else {
+					log.warn(f.getCause().getMessage());
+				}
 			}
-			m.append(" during ");
-			m.append(ctx.getCommandLine());
-			log.error(m.toString(), e);
 		}
 
 		if (e instanceof Failure) {
