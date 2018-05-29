@@ -52,14 +52,14 @@ public class SshServerSessionFactory extends SessionFactory {
 			}
 		}
 
-		final SshServerSession session = (SshServerSession) super.createSession(io);
+		ServerSessionImpl session = super.createSession(io);
 		SocketAddress peer = io.getRemoteAddress();
 		SshDaemonClient client = new SshDaemonClient(peer);
 		session.setAttribute(SshDaemonClient.KEY, client);
 
 		// TODO(davido): Log a session close without authentication as a
 		// failure.
-		session.addCloseSessionListener(new SshFutureListener<CloseFuture>() {
+		session.addCloseFutureListener(new SshFutureListener<CloseFuture>() {
 			@Override
 			public void operationComplete(CloseFuture future) {
 				log.info("closed ssh session from {}", io.getRemoteAddress());
