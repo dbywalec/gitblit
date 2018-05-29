@@ -16,7 +16,9 @@
 package com.gitblit.wicket.pages;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.wicket.PageParameters;
 import org.apache.wicket.Session;
@@ -76,6 +78,7 @@ public abstract class RootSubPage extends RootPage {
 		// build list of access-restricted projects
 		String lastProject = null;
 		List<String> repos = new ArrayList<String>();
+		HashSet<String> groups = new HashSet<String>();
 		if (includeWildcards) {
 			// all repositories
 			repos.add(".*");
@@ -95,15 +98,27 @@ public abstract class RootSubPage extends RootPage {
 					continue;
 				}
 				if (includeWildcards) {
-					if (lastProject == null || !lastProject.equalsIgnoreCase(repositoryModel.projectPath)) {
-						lastProject = repositoryModel.projectPath.toLowerCase();
-						if (!StringUtils.isEmpty(repositoryModel.projectPath)) {
-							// regex for all repositories within a project
-							repos.add(repositoryModel.projectPath + "/.*");
+					String rootPath = StringUtils.getRootPath(repositoryModel.name);
+					if (!StringUtils.isEmpty(rootPath)) {
+						List<String> subPaths = StringUtils.getStringsFromValue(rootPath, "/");
+						String wildcardPath = null;
+						for (String subPath : subPaths) {
+							if ( null == wildcardPath ) {
+								wildcardPath = subPath;
+							} else {
+								wildcardPath = wildcardPath + "/" + subPath;
+							}
+							String lowerCaseWildcardPath = wildcardPath.toLowerCase();
+							// non-root, grouped repository
+							if (!groups.contains(lowerCaseWildcardPath)) {
+								// regex for all repositories within a group
+								repos.add(wildcardPath + "/.*");
+								groups.add(lowerCaseWildcardPath);
+							}
 						}
 					}
 				}
-				repos.add(repo.toLowerCase());
+				repos.add(repo);
 			}
 		}
 		return repos;
