@@ -44,7 +44,10 @@ import org.eclipse.jetty.server.HttpConfiguration;
 import org.eclipse.jetty.server.HttpConnectionFactory;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.ServerConnector;
-import org.eclipse.jetty.server.session.HashSessionManager;
+import org.eclipse.jetty.server.session.DefaultSessionCache;
+import org.eclipse.jetty.server.session.NullSessionDataStore;
+import org.eclipse.jetty.server.session.SessionDataStore;
+import org.eclipse.jetty.server.session.SessionHandler;
 import org.eclipse.jetty.util.security.Constraint;
 import org.eclipse.jetty.util.thread.QueuedThreadPool;
 import org.eclipse.jetty.webapp.WebAppContext;
@@ -371,13 +374,13 @@ public class GitBlitServer {
 		rootContext.setWar(location.toExternalForm());
 		rootContext.setTempDirectory(tempDir);
 
-		// Set cookies HttpOnly so they are not accessible to JavaScript engines
-		HashSessionManager sessionManager = new HashSessionManager();
-		sessionManager.setHttpOnly(true);
+		SessionHandler sessionHandler = rootContext.getSessionHandler();
 		// Use secure cookies if only serving https
-		sessionManager.setSecureRequestOnly( (params.port <= 0 && params.securePort > 0) ||
+		sessionHandler.setSecureRequestOnly( (params.port <= 0 && params.securePort > 0) ||
 				(params.port > 0 && params.securePort > 0 && settings.getBoolean(Keys.server.redirectToHttpsPort, true)) );
-		rootContext.getSessionHandler().setSessionManager(sessionManager);
+	    DefaultSessionCache sessionCache = new DefaultSessionCache(sessionHandler);
+	    sessionCache.setSessionDataStore(new NullSessionDataStore());
+	    rootContext.getSessionHandler().setSessionCache(sessionCache);		
 
 		// Ensure there is a defined User Service
 		String realmUsers = params.userService;
