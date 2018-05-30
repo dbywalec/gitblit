@@ -446,7 +446,7 @@ public class GitBlitServer {
 			sh.setConstraintMappings(new ConstraintMapping[] { cm });
 
 			// Configure this context to use the Security Handler defined before
-			rootContext.setHandler(sh);
+			rootContext.insertHandler(sh);
 		}
 
 		// Setup the Gitblit context
